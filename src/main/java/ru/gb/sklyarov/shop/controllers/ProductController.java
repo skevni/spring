@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @PostMapping("/product/{id}")
-    public String changeCost(Model model, @RequestParam String action, @PathVariable Long id){
+    public String changeCost(@RequestParam String action, @PathVariable Long id){
         Product product = productService.findByIs(id);
         if (action.equals("priceUp")){
             productService.changeCost(product, 1);

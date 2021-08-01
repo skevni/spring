@@ -31,6 +31,7 @@ public class ProductRepository {
     }
 
     public void addProduct(Product product){
+        product.setId((long) (products.size() + 1));
         products.add(product);
     }
 }

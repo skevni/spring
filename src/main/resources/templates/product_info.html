@@ -21,14 +21,22 @@
             <tr class="align-left">
                 <td>Идентификатор:</td>
                 <td><span th:text="${product.id}"></span></td>
+                <td></td>
             </tr>
             <tr class="align-left">
                 <td>Наименование:</td>
                 <td><span th:text="${product.title}"></span></td>
+                <td></td>
             </tr>
             <tr class="align-left">
                 <td>Стоимость:</td>
                 <td><span th:text="${product.cost}"></span></td>
+                <td>
+                    <form method="post" th:action="@{'/product/' + ${product.id}}" action="#">
+                        <button type="submit" name="action" th:value="priceDown" >-</button>
+                        <button type="submit" name="action" th:value="priceUp">+</button>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>

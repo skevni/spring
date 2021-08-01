@@ -34,4 +34,8 @@ public class ProductRepository {
         product.setId((long) (products.size() + 1));
         products.add(product);
     }
+
+    public  void  setCost(Product product, double costDelta){
+        product.setCost(product.getCost() + costDelta);
+    }
 }

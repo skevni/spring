@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -42,5 +42,17 @@ public class ProductController {
     public String addProduct(@RequestParam String title, @RequestParam double cost){
         productService.addProduct(new Product(title,cost));
         return "redirect:/products";
+    }
+
+    @PostMapping("/product/{id}")
+    public String changeCost(@RequestParam String action, @PathVariable Long id){
+        Product product = productService.findByIs(id);
+        if (action.equals("priceUp")){
+            productService.changeCost(product, 1);
+        }
+        if (action.equals("priceDown")){
+            productService.changeCost(product, -1);
+        }
+        return "redirect:/product/" + id;
     }
 }

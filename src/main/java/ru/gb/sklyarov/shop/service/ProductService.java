@@ -28,4 +28,8 @@ public class ProductService {
     public void addProduct(Product product){
         productRepository.addProduct(product);
     }
+
+    public void changeCost(Product product, double costDelta){
+        productRepository.setCost(product, costDelta);
+    }
 }

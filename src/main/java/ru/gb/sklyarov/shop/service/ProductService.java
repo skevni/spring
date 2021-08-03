@@ -26,6 +26,7 @@ public class ProductService {
     }
 
     public void addProduct(Product product){
+        product.setId((long) (productRepository.getProducts().size() + 1));
         productRepository.addProduct(product);
     }
 

@@ -31,11 +31,14 @@ public class ProductRepository {
     }
 
     public void addProduct(Product product){
-        product.setId((long) (products.size() + 1));
         products.add(product);
     }
 
     public  void  setCost(Product product, double costDelta){
         product.setCost(product.getCost() + costDelta);
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 }

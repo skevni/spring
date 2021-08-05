@@ -1,0 +1,22 @@
+version: '3.2'
+
+volumes:
+  spring-postgres:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:9.6
+    container_name: spring-postgres
+    volumes:
+      - type: volume
+        source: spring-postgres
+        target: /var/lib/postgresql/dataConfig
+    environment:
+      POSTGRES_DB: spring
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+    ports:
+      - "5436:5432"
+
+#  jdbc:postgresql://localhost:5436/spring

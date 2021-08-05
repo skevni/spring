@@ -1,10 +1,12 @@
 package ru.gb.sklyarov.shop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.gb.sklyarov.shop.model.Product;
 import ru.gb.sklyarov.shop.service.ProductService;
 
@@ -21,36 +23,36 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public String getProductsList(Model model){
-        List<Product> productList = productService.showAll();
+    public String getProductsList(Model model) {
+        List<Product> productList = productService.findAll();
         model.addAttribute("products", productList);
         return "products";
     }
 
     @GetMapping("/product/{id}")
-    public String getProductPage(Model model, @PathVariable Long id){
+    public String getProductPage(Model model, @PathVariable Long id) {
         model.addAttribute("product", productService.findByIs(id));
         return "product_info";
     }
 
     @GetMapping("/create")
-    public String createProduct(){
+    public String createProduct() {
         return "product_create";
     }
 
     @PostMapping("/create")
-    public String addProduct(@RequestParam String title, @RequestParam double cost){
-        productService.addProduct(new Product(title,cost));
+    public String addProduct(@RequestParam String title, @RequestParam double cost) {
+        productService.save(new Product(title, cost));
         return "redirect:/products";
     }
 
     @PostMapping("/product/{id}")
-    public String changeCost(@RequestParam String action, @PathVariable Long id){
+    public String changeCost(@RequestParam String action, @PathVariable Long id) {
         Product product = productService.findByIs(id);
-        if (action.equals("priceUp")){
+        if (action.equals("priceUp")) {
             productService.changeCost(product, 1);
         }
-        if (action.equals("priceDown")){
+        if (action.equals("priceDown")) {
             productService.changeCost(product, -1);
         }
         return "redirect:/product/" + id;

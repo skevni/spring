@@ -52,7 +52,7 @@ public class ProductDao {
         Long id;
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
-            id = (Long) session.createSQLQuery("select max(id) as maxvalue from products").addScalar("maxvalue", LongType.INSTANCE).uniqueResult();
+            id = (Long) session.createSQLQuery("select COALESCE((select max(id) from products) ,0) as maxvalue").addScalar("maxvalue", LongType.INSTANCE).uniqueResult();
             session.getTransaction().commit();
         }
         return id;

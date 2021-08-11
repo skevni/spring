@@ -6,7 +6,7 @@ import org.hibernate.type.DoubleType;
 import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.gb.sklyarov.shop.SessionFactoryProj;
+import ru.gb.sklyarov.shop.SessionFactoryShop;
 import ru.gb.sklyarov.shop.model.Product;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class ProductDao {
     private final SessionFactory factory;
 
     @Autowired
-    public ProductDao(SessionFactoryProj sessionFactory) {
+    public ProductDao(SessionFactoryShop sessionFactory) {
         this.factory = sessionFactory.getSessionFactory();
     }
 
@@ -48,23 +48,14 @@ public class ProductDao {
         }
     }
 
-    public Long getMaxId() {
-        Long id;
-        try (Session session = factory.getCurrentSession()) {
-            session.beginTransaction();
-            id = (Long) session.createSQLQuery("select COALESCE((select max(id) from products) ,0) as maxvalue").addScalar("maxvalue", LongType.INSTANCE).uniqueResult();
-            session.getTransaction().commit();
-        }
-        return id;
-    }
-
     public void setCost(Product product, double costDelta) {
         Long id = product.getId();
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             session.createSQLQuery("Update public.products SET cost= cost + :cost WHERE id=:id")
                     .setParameter("cost", costDelta, DoubleType.INSTANCE)
-                    .setParameter("id", id, LongType.INSTANCE).executeUpdate();
+                    .setParameter("id", id, LongType.INSTANCE)
+                    .executeUpdate();
             session.getTransaction().commit();
         }
     }

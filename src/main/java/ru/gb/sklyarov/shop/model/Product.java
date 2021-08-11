@@ -1,6 +1,7 @@
 package ru.gb.sklyarov.shop.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -15,6 +16,9 @@ public class Product {
 
     @Column(name = "cost")
     private double cost;
+
+    @OneToMany(mappedBy = "product")
+    List<Order> orderList;
 
     public Product() {
     }

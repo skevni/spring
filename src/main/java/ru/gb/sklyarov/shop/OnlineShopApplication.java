@@ -7,21 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OnlineShopApplication {
 
-    private static SessionFactoryProj sessionFactory;
+    private static SessionFactoryShop sessionFactory;
 
     @Autowired
-    public OnlineShopApplication(SessionFactoryProj sessionFactory) {
+    public OnlineShopApplication(SessionFactoryShop sessionFactory) {
         OnlineShopApplication.sessionFactory = sessionFactory;
     }
 
     public static void main(String[] args) {
-        try {
             SpringApplication.run(OnlineShopApplication.class, args);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-//        finally {
-//			sessionFactory.shutdown();
-//        }
     }
 }

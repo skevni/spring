@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    //    private ProductRepository productRepository;
     private ProductDao productRepository;
 
     @Autowired
@@ -27,7 +26,6 @@ public class ProductService {
     }
 
     public void save(Product product) {
-        product.setId(productRepository.getMaxId() + 1);
         productRepository.save(product);
     }
 

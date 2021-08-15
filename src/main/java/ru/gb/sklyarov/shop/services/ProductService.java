@@ -33,14 +33,14 @@ public class ProductService {
             return productRepository.findAllByPriceBetween(minPriceLimit, maxPriceLimit);
         }
 
-        if (minPriceLimit != null ) {
+        if (minPriceLimit != null) {
             return productRepository.findAllByPriceIsGreaterThanEqual(minPriceLimit);
         }
 
         return productRepository.findAllByPriceIsLessThanEqual(maxPriceLimit);
     }
 
-    public Product save(Product product){
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 }

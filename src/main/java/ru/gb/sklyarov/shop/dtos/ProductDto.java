@@ -10,7 +10,7 @@ public class ProductDto {
     private String title;
     private double price;
 
-    public ProductDto(Product product){
+    public ProductDto(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();

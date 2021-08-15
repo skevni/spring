@@ -39,4 +39,8 @@ public class ProductService {
 
         return productRepository.findAllByPriceIsLessThanEqual(maxPriceLimit);
     }
+
+    public Product save(Product product){
+        return productRepository.save(product);
+    }
 }

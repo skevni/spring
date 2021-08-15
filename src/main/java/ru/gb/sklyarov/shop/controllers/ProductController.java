@@ -25,10 +25,11 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ProductDto saveProduct(ProductDto productDto) {
+    public ProductDto saveProduct(@RequestBody ProductDto productDto) {
         Product product = new Product();
-        product.setTitle(product.getTitle());
-        product.setPrice(product.getPrice());
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        productService.save(product);
         return new ProductDto(product);
     }
 

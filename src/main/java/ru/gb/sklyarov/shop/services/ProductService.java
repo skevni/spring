@@ -1,6 +1,8 @@
 package ru.gb.sklyarov.shop.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.models.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
@@ -13,12 +15,12 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Product findById(Long id) {
+    public <Optional> Product findById(Long id) {
         return productRepository.getById(id);
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Page<Product> findAll(int pageIndex, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 
     public void deleteById(Long id) {

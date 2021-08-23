@@ -1,8 +1,8 @@
 angular.module('market-app', []).controller('indexController', function ($scope, $http) {
     const applicationPath = 'http://localhost:8189/'
-    var page = 1;
-    var totalPages = 0;
-    var lastPage = false;
+    let page = 1;
+    let totalPages = 0;
+    let lastPage = false;
 
     $scope.getAllProducts = function (pageIndex = 1) {
         $http({
@@ -18,12 +18,6 @@ angular.module('market-app', []).controller('indexController', function ($scope,
             if (response.data.last) {
                 lastPage = true;
             }
-            // надо это обрабатыать при удалении, но там numberOfElements не меняется
-            // оставил пока здесь
-            if (parseInt(response.data.numberOfElements) === 1) {
-                page -= 1;
-            }
-
         })
     }
     $scope.deleteProduct = function (product) {
@@ -31,6 +25,10 @@ angular.module('market-app', []).controller('indexController', function ($scope,
             url: applicationPath + 'products/delete/' + product.id,
             method: 'GET'
         }).then(function () {
+
+            if (parseInt($scope.pageProducts.numberOfElements) === 1) {
+                page -= 1;
+            }
             $scope.getAllProducts(page);
         })
     }

@@ -7,7 +7,8 @@ public class ShopError {
     private String message;
     private Timestamp timestamp;
 
-    public ShopError(){}
+    public ShopError() {
+    }
 
     public ShopError(String message) {
         this.message = message;

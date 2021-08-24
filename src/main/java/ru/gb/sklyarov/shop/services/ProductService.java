@@ -10,15 +10,14 @@ import ru.gb.sklyarov.shop.repositories.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not fount"));
     }
 
     public Page<Product> findAll(int pageIndex, int pageSize) {

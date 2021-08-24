@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
-import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.models.Product;
 import ru.gb.sklyarov.shop.services.ProductService;
 
@@ -28,7 +27,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
-        return new ProductDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found")));
+        return new ProductDto(productService.findById(id));
     }
 
     @GetMapping("/filter")
@@ -49,7 +48,7 @@ public class ProductController {
 
     @PutMapping
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        Product product = productService.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + productDto.getId() + " not found"));
+        Product product = productService.findById(productDto.getId());
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         productService.save(product);

@@ -10,9 +10,10 @@ public class ShopError {
     public ShopError() {
     }
 
-    public ShopError(String message) {
+    public ShopError(String message, int statusCode) {
         this.message = message;
         this.timestamp = new Timestamp(System.currentTimeMillis());
+        this.status = statusCode;
     }
 
     public int getStatus() {

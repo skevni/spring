@@ -1,5 +1,5 @@
 angular.module('market-app', []).controller('indexController', function ($scope, $http) {
-    const applicationPath = 'http://localhost:8189/'
+    const applicationPath = 'http://localhost:8189/api/v1/'
     let page = 1;
     let totalPages = 0;
     let lastPage = false;
@@ -18,12 +18,14 @@ angular.module('market-app', []).controller('indexController', function ($scope,
             if (response.data.last) {
                 lastPage = true;
             }
+            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.pageProducts.totalPages);
+            console.log($scope.paginationArray);
         })
     }
     $scope.deleteProduct = function (product) {
         $http({
-            url: applicationPath + 'products/delete/' + product.id,
-            method: 'GET'
+            url: applicationPath + 'products/' + product.id,
+            method: 'DELETE'
         }).then(function () {
 
             if (parseInt($scope.pageProducts.numberOfElements) === 1) {
@@ -32,32 +34,13 @@ angular.module('market-app', []).controller('indexController', function ($scope,
             $scope.getAllProducts(page);
         })
     }
-    $scope.previousPage = function () {
-        $http.get(applicationPath + 'products')
-            .then(function () {
-                if (page - 1 < 1) {
-                    page = 1
-                } else {
-                    page -= 1;
-                }
-                lastPage = false;
-                $scope.getAllProducts(page);
-            })
-    }
-    $scope.nextPage = function () {
-        $http({
-            url: applicationPath + 'products',
-            method: 'GET'
-        }).then(function () {
-            if (!lastPage) {
-                if (page + 1 < totalPages) {
-                    page += 1;
-                } else {
-                    page = totalPages;
-                }
-                $scope.getAllProducts(page);
-            }
-        })
+
+    $scope.generatePagesIndexes = function (startPage, endPage) {
+        let arr = [];
+        for (let i = startPage; i <= endPage; i++) {
+            arr.push(i);
+        }
+        return arr;
     }
 
     $scope.getAllProducts();

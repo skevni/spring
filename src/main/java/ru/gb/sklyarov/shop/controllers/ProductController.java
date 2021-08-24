@@ -3,8 +3,8 @@ package ru.gb.sklyarov.shop.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
+import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.models.Product;
 import ru.gb.sklyarov.shop.services.ProductService;
 
@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping
     public Page<ProductDto> getAllProducts(@RequestParam(defaultValue = "1", name = "p") int pageIndex) {
         if (pageIndex < 1) {
             pageIndex = 1;
@@ -25,12 +26,19 @@ public class ProductController {
                 .map(ProductDto::new);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
-        return new ProductDto(productService.findById(id));
+        return new ProductDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found")));
     }
 
-    @PostMapping("/products")
+    @GetMapping("/filter")
+    public List<ProductDto> getProductByFilter(@RequestParam(name = "min_price", required = false) Double minPriceLimit, @RequestParam(name = "max_price", required = false) Double maxPriceLimit) {
+        return productService.findAllProductsByPrice(minPriceLimit, maxPriceLimit)
+                .stream().map(ProductDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping
     public ProductDto saveProduct(@RequestBody ProductDto productDto) {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
@@ -39,16 +47,23 @@ public class ProductController {
         return new ProductDto(product);
     }
 
-    @GetMapping("/products/delete/{id}")
-    public RedirectView deleteProductById(@PathVariable Long id) {
-        productService.deleteById(id);
-        return new RedirectView("/products");
+    @PutMapping
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        Product product = productService.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + productDto.getId() + " not found"));
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        productService.save(product);
+        return new ProductDto(product);
     }
 
-    @GetMapping("/products/filter")
-    public List<ProductDto> getProductByFilter(@RequestParam(name = "min_price", required = false) Double minPriceLimit, @RequestParam(name = "max_price", required = false) Double maxPriceLimit) {
-        return productService.findAllProductsByPrice(minPriceLimit, maxPriceLimit)
-                .stream().map(ProductDto::new)
-                .collect(Collectors.toList());
+    @DeleteMapping("/{id}")
+    public void deleteProductById(@PathVariable Long id) {
+        productService.deleteById(id);
     }
+
+    @DeleteMapping
+    public void deleteAllProducts() {
+        productService.deleteAll();
+    }
+
 }

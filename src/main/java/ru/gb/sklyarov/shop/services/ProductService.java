@@ -4,19 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.models.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public <Optional> Product findById(Long id) {
-        return productRepository.getById(id);
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
     }
 
     public Page<Product> findAll(int pageIndex, int pageSize) {
@@ -24,7 +26,7 @@ public class ProductService {
     }
 
     public void deleteById(Long id) {
-        productRepository.delete(productRepository.getById(id));
+        productRepository.delete(productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not fount")));
     }
 
     public List<Product> findAllProductsByPrice(Double minPriceLimit, Double maxPriceLimit) {
@@ -44,5 +46,9 @@ public class ProductService {
 
     public Product save(Product product) {
         return productRepository.save(product);
+    }
+
+    public void deleteAll() {
+        productRepository.deleteAll();
     }
 }

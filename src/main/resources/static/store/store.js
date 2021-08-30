@@ -41,13 +41,20 @@ angular.module('market-app').controller('storeController', function ($scope, $ht
                 page -= 1;
             }
             $scope.getAllProducts(page);
-        })
+        });
     }
 
     $scope.editProduct = function (productId) {
         $location.path('/edit_product/' + productId);
     }
 
-
+    $scope.toCart = function (productId){
+        $http({
+            url: applicationPath + 'products/addToCart/' + productId,
+            method: 'POST'
+        }).then(function () {
+            alert("Товар добавлен в корзину");
+        });
+    }
     $scope.getAllProducts();
 });

@@ -16,6 +16,9 @@
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
             <td>
+                <button type="button" class="btn btn-primary" ng-click="toCart(p.id)">В корзину</button>
+            </td>
+            <td>
                 <button type="button" class="btn btn-primary" ng-click="editProduct(p.id)">Изменить</button>
             </td>
             <td>

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
+import ru.gb.sklyarov.shop.cart.CartsContent;
 import ru.gb.sklyarov.shop.models.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 
@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CartService cartService;
 
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
@@ -50,5 +51,9 @@ public class ProductService {
 
     public void deleteAll() {
         productRepository.deleteAll();
+    }
+
+    public void addProductToCart(CartsContent cartsContent){
+        cartService.add(cartsContent);
     }
 }

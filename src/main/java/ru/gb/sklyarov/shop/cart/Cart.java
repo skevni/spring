@@ -1,21 +1,29 @@
 package ru.gb.sklyarov.shop.cart;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class Cart {
     private List<CartsContent> cartsContents;
 
     public Cart() {
-        cartsContents = Collections.emptyList();
+        cartsContents = new ArrayList<>();
     }
 
     public List<CartsContent> getCartsContents() {
         return cartsContents;
     }
 
-    public boolean add(CartsContent cartsContent) {
-        return cartsContents.add(cartsContent);
+
+    public boolean add(CartsContent newCartsContent) {
+
+        return cartsContents.add(newCartsContent);
+
     }
 
     public void delete(int cartsContentIndex) {

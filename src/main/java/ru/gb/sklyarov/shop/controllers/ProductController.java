@@ -2,8 +2,13 @@ package ru.gb.sklyarov.shop.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.sklyarov.shop.cart.CartsContent;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
+import ru.gb.sklyarov.shop.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.models.Product;
 import ru.gb.sklyarov.shop.services.ProductService;
@@ -28,7 +33,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
-        return new ProductDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not fount")));
+        return new ProductDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found")));
     }
 
     @GetMapping("/filter")
@@ -39,7 +44,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto saveProduct(@RequestBody ProductDto productDto) {
+    public ProductDto saveProduct(@RequestBody @Validated ProductDto productDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new DataValidationException(400, bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
+        }
         Product product = new Product();
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
@@ -49,7 +57,7 @@ public class ProductController {
 
     @PutMapping
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        Product product = productService.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + productDto.getId() + " not fount"));
+        Product product = productService.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + productDto.getId() + " not found"));
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         productService.save(product);
@@ -64,6 +72,12 @@ public class ProductController {
     @DeleteMapping
     public void deleteAllProducts() {
         productService.deleteAll();
+    }
+
+    @PostMapping("/addToCart/{id}")
+    public void addToCart(@PathVariable Long id) {
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found"));
+        productService.addProductToCart(new CartsContent(new ProductDto(product), 1));
     }
 
 }

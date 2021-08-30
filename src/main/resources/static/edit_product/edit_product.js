@@ -6,7 +6,7 @@ angular.module('market-app').controller('editProductController', function ($scop
             .then(function successCallback(response){
                 $scope.updated_product = response.data;
             }, function failureCallback (response){
-                alert(response.data.message);
+                alert(response.data.messages);
                 $location.path('/store');
             });
     }
@@ -21,7 +21,7 @@ angular.module('market-app').controller('editProductController', function ($scop
             alert('Продукт успешно обновлен');
             $location.path('/store');
         }, function failureCallback (response) {
-            alert(response.data.message)
+            alert(response.data.messages)
         })
     }
 

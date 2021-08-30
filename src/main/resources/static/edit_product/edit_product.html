@@ -1,0 +1,12 @@
+<div class="container" ng-controller="editProductController">
+    <h1>Внести изменения в продукт</h1>
+    <form novalidate ng-submit="updateProduct()">
+        <input class="form-control" type="number" placeholder="Идентификатор" ng-model="updated_product.id">
+        <br>
+        <input class="form-control" type="text" placeholder="Название" ng-model="updated_product.title">
+        <br>
+        <input class="form-control" type="number" step="any" placeholder="Цена" ng-model="updated_product.price">
+        <br>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>

@@ -26,7 +26,15 @@ public class Cart {
         }
     }
 
-    public void delete(CartsContent cartsContent) {
-        cartsContents.remove(cartsContent);
+    public int getCartContentIdByTitle(String title){
+        for (int i = 0; i < cartsContents.size(); i++) {
+            if (cartsContents.get(i).getTitle().equals(title)){
+                return i;
+            }
+        }
+        throw  new ArrayIndexOutOfBoundsException("Nothing to delete");
+    }
+    public void delete(String tittle) {
+        cartsContents.remove(getCartContentIdByTitle(tittle));
     }
 }

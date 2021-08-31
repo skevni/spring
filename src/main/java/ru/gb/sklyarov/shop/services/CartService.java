@@ -16,8 +16,8 @@ public class CartService {
         cart.add(cartsContent);
     }
 
-    public void delete(CartsContent cartsContent) {
-        cart.delete(cartsContent);
+    public void delete(String title) {
+        cart.delete(title);
     }
 
     public List<CartsContent> getCartContent() {

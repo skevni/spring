@@ -11,14 +11,14 @@ angular.module('market-app').controller('cartController', function ($scope, $htt
         });
     }
 
-    $scope.deleteProduct = function (product){
-        console.log(product)
+    $scope.deleteProduct = function (productTitle){
         $http({
-            url: applicationPath + 'cart',
-            method: 'DELETE',
-            data: product
-        }).then(function (response) {
+            url: applicationPath + 'cart/' + productTitle,
+            method: 'DELETE'
+        })
+        .then(function (response) {
             $scope.product = null;
+            $scope.getCart();
         });
     }
 

@@ -21,8 +21,8 @@ public class CartController {
         return cartService.getCartContent();
     }
 
-    @DeleteMapping
-    public void deleteProduct(@RequestBody CartsContent cartsContent){
-        cartService.delete(cartsContent);
+    @DeleteMapping("/{title}")
+    public void deleteProduct(@PathVariable String title){
+        cartService.delete(title);
     }
 }

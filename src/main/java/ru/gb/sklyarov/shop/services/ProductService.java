@@ -53,7 +53,7 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
-    public void addProductToCart(CartsContent cartsContent){
+    public void addProductToCart(CartsContent cartsContent) {
         cartService.add(cartsContent);
     }
 }

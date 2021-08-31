@@ -12,12 +12,12 @@ import java.util.List;
 public class CartService {
     private final Cart cart;
 
-    public boolean add(CartsContent cartsContent) {
-        return cart.add(cartsContent);
+    public void add(CartsContent cartsContent) {
+        cart.add(cartsContent);
     }
 
-    public void delete(int cartsContentIndex) {
-        cart.delete(cartsContentIndex);
+    public void delete(CartsContent cartsContent) {
+        cart.delete(cartsContent);
     }
 
     public List<CartsContent> getCartContent() {

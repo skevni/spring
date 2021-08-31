@@ -3,7 +3,7 @@
     <table class="table">
         <thead>
         <tr>
-            <td>Идентификатор</td>
+            <td>№ пп</td>
             <td>Наименование</td>
             <td>Цена</td>
             <td>Количество</td>
@@ -11,15 +11,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in cart.content">
+        <tr ng-repeat="c in cart">
             <td></td>
-            <td>{{p.productDto.title}}</td>
-            <td>{{p.productDto.price}}</td>
+            <td>{{c.title}}</td>
+            <td>{{c.price}}</td>
             <td>
-                {{p.amount}}
+                {{c.amount}}
             </td>
             <td>
-                <button type="button" class="btn btn-primary" ng-click="deleteProduct(p)">Удалить</button>
+                <button type="button" class="btn btn-primary" ng-click="deleteProduct(c)">Удалить</button>
             </td>
         </tr>
         </tbody>

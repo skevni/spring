@@ -20,4 +20,9 @@ public class CartController {
     public List<CartsContent> getCartsContent(){
         return cartService.getCartContent();
     }
+
+    @DeleteMapping
+    public void deleteProduct(@RequestBody CartsContent cartsContent){
+        cartService.delete(cartsContent);
+    }
 }

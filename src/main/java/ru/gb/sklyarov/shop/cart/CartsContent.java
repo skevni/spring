@@ -7,11 +7,18 @@ import ru.gb.sklyarov.shop.dtos.ProductDto;
 @NoArgsConstructor
 @Getter
 public class CartsContent {
-    private ProductDto productDto;
+
+    private String title;
+    private double price;
     private int amount;
 
-    public CartsContent(ProductDto productDto, int amount) {
-        this.productDto = productDto;
+    public CartsContent(String title, double price, int amount) {
+        this.title = title;
+        this.price = price;
         this.amount = amount;
+    }
+
+    public void incrementAmount(){
+        this.amount++;
     }
 }

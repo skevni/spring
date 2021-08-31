@@ -2,15 +2,15 @@ package ru.gb.sklyarov.shop.exceptions;
 
 import java.util.List;
 
-public class DataValidationException extends RuntimeException{
-    private List<String> messages;
+public class DataValidationException extends RuntimeException {
+    private final List<String> messages;
+
+    public DataValidationException(int statusCode, List<String> messages) {
+        this.messages = messages;
+
+    }
 
     public List<String> getMessages() {
         return messages;
-    }
-
-    public DataValidationException(int statusCode, List<String> messages){
-        this.messages = messages;
-
     }
 }

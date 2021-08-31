@@ -7,7 +7,7 @@ import java.util.List;
 
 @Component
 public class Cart {
-    private List<CartsContent> cartsContents;
+    private final List<CartsContent> cartsContents;
 
     public Cart() {
         cartsContents = new ArrayList<>();
@@ -26,15 +26,22 @@ public class Cart {
         }
     }
 
-    public int getCartContentIdByTitle(String title){
+    public int getCartContentIdByTitle(String title) {
         for (int i = 0; i < cartsContents.size(); i++) {
-            if (cartsContents.get(i).getTitle().equals(title)){
+            if (cartsContents.get(i).getTitle().equals(title)) {
                 return i;
             }
         }
-        throw  new ArrayIndexOutOfBoundsException("Nothing to delete");
+        throw new ArrayIndexOutOfBoundsException("Nothing to delete");
     }
-    public void delete(String tittle) {
-        cartsContents.remove(getCartContentIdByTitle(tittle));
+
+    public void delete(Long id) {
+//        cartsContents.remove(cartsContent);
+        for (int i = 0; i < cartsContents.size(); i++) {
+            if (cartsContents.get(i).getId().equals(id)){
+                cartsContents.remove(i);
+                return;
+            }
+        }
     }
 }

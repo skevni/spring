@@ -16,8 +16,8 @@ public class CartService {
         cart.add(cartsContent);
     }
 
-    public void delete(String title) {
-        cart.delete(title);
+    public void delete(Long id) {
+        cart.delete(id);
     }
 
     public List<CartsContent> getCartContent() {

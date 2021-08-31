@@ -12,6 +12,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> catchResourceNotFoundException(ResourceNotFoundException ex) {
         return new ResponseEntity<>(new ShopError(HttpStatus.NOT_FOUND.value(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler
     public ResponseEntity<?> catchDataValidationException(DataValidationException ex) {
         return new ResponseEntity<>(new ShopError(HttpStatus.BAD_REQUEST.value(), ex.getMessages()), HttpStatus.BAD_REQUEST);

@@ -77,7 +77,7 @@ public class ProductController {
     @PostMapping("/addToCart/{id}")
     public void addToCart(@PathVariable Long id) {
         Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found"));
-        productService.addProductToCart(new CartsContent(product.getTitle(), product.getPrice(), 1));
+        productService.addProductToCart(new CartsContent(product.getId(), product.getTitle(), product.getPrice(), 1));
     }
 
 }

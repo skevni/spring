@@ -12,17 +12,17 @@ public class ShopError {
     public ShopError() {
     }
 
-    public ShopError( int statusCode, List<String> messages) {
+    public ShopError(int statusCode, List<String> messages) {
         this.messages = messages;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.status = statusCode;
     }
 
     public ShopError(int statusCode, String message) {
-        this( statusCode, List.of(message));
+        this(statusCode, List.of(message));
     }
 
-    public ShopError(int statusCode,String... messages) {
+    public ShopError(int statusCode, String... messages) {
         this(statusCode, Arrays.asList(messages));
     }
 

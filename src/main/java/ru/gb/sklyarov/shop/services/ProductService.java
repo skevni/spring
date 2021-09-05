@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.cart.CartsContent;
-import ru.gb.sklyarov.shop.models.Product;
+import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 
 import java.util.ArrayList;

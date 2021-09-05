@@ -25,6 +25,10 @@
                 templateUrl: "cart/cart.html",
                 controller: "cartController"
             })
+            .when('/userProfile', {
+                templateUrl: "user_profile/userprofile.html",
+                controller: "userProfileController"
+            })
             .otherwise({
                 redirectTo: '/'
             });

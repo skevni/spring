@@ -3,9 +3,12 @@ package ru.gb.sklyarov.shop.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -34,4 +37,12 @@ public class User {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

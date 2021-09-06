@@ -1,12 +1,12 @@
-package ru.gb.sklyarov.shop.controllers;
+package ru.gb.sklyarov.shop.dtos;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class AuthResponse {
     private String token;
 

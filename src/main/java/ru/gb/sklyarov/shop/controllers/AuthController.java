@@ -8,7 +8,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.gb.sklyarov.shop.dtos.AuthRequest;
+import ru.gb.sklyarov.shop.dtos.AuthResponse;
 import ru.gb.sklyarov.shop.exceptions.ShopError;
 import ru.gb.sklyarov.shop.services.UserService;
 import ru.gb.sklyarov.shop.utils.JwtTokenUtil;
@@ -26,6 +29,8 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         } catch (BadCredentialsException ex) {
             return new ResponseEntity<>(new ShopError(HttpStatus.UNAUTHORIZED.value(), "Incorrect username or password"), HttpStatus.UNAUTHORIZED);
+        } catch (Exception e){
+            e.printStackTrace();
         }
         String token = jwtTokenUtil.generateToken(userService.loadUserByUsername(authRequest.getUsername()));
         return ResponseEntity.ok(new AuthResponse(token));

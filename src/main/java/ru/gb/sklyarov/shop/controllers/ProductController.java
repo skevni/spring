@@ -10,7 +10,7 @@ import ru.gb.sklyarov.shop.cart.CartsContent;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
 import ru.gb.sklyarov.shop.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.models.Product;
+import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.services.ProductService;
 
 import java.util.List;
@@ -27,8 +27,7 @@ public class ProductController {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
-        return productService.findAll(pageIndex - 1, 10)
-                .map(ProductDto::new);
+        return productService.findAll(pageIndex - 1, 10).map(ProductDto::new);
     }
 
     @GetMapping("/{id}")

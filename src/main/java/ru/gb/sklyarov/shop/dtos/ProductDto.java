@@ -3,7 +3,7 @@ package ru.gb.sklyarov.shop.dtos;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import ru.gb.sklyarov.shop.models.Product;
+import ru.gb.sklyarov.shop.entities.Product;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;

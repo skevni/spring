@@ -1,4 +1,4 @@
-angular.module('market-app').controller('storeController', function ($scope, $http, $location) {
+angular.module('market-app').controller('storeController', function ($rootScope, $scope, $http, $location) {
     const applicationPath = 'http://localhost:8189/api/v1/'
     let page = 1;
     let totalPages = 0;
@@ -18,17 +18,9 @@ angular.module('market-app').controller('storeController', function ($scope, $ht
             if (response.data.last) {
                 lastPage = true;
             }
-            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.pageProducts.totalPages);
+            $scope.paginationArray = $rootScope.generatePagesIndexes(1, $scope.pageProducts.totalPages);
             console.log($scope.paginationArray);
         })
-    }
-
-    $scope.generatePagesIndexes = function (startPage, endPage) {
-        let arr = [];
-        for (let i = startPage; i <= endPage; i++) {
-            arr.push(i);
-        }
-        return arr;
     }
 
     $scope.deleteProduct = function (product) {

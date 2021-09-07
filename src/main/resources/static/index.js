@@ -29,6 +29,14 @@
                 templateUrl: "user_profile/userprofile.html",
                 controller: "userProfileController"
             })
+            .when('/registration', {
+                templateUrl: "registration/registration.html",
+                controller: "userRegistrationController"
+            })
+            .when('/users', {
+                templateUrl: "user_list/user_list.html",
+                controller: "usersController"
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -85,5 +93,25 @@ angular.module('market-app').controller('indexController', function ($rootScope,
         } else {
             return false;
         }
+    };
+    // TODO: сделать доступ только, если пользователь имеет право добавлять продукты
+    $scope.isUserPrivileged = function(){
+        return $scope.isUserLoggedIn();
+    };
+    // TODO: сделать доступ только для админа или суперадмина
+    $scope.isAdmin = function(){
+        return $scope.isUserLoggedIn();
+    };
+
+    $scope.redirectToRegistration = function(){
+        $location.path("/registration");
+    };
+
+    $rootScope.generatePagesIndexes = function (startPage, endPage) {
+        let arr = [];
+        for (let i = startPage; i <= endPage; i++) {
+            arr.push(i);
+        }
+        return arr;
     };
 });

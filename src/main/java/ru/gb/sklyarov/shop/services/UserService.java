@@ -1,11 +1,14 @@
 package ru.gb.sklyarov.shop.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.entities.Authority;
 import ru.gb.sklyarov.shop.entities.Role;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -48,4 +52,13 @@ public class UserService implements UserDetailsService {
 
         return rights.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public Page<User> findAllUsers(int pageIndex, int pageSize) {
+        return userRepository.findAll(PageRequest.of(pageIndex, pageSize));
+    }
+
 }

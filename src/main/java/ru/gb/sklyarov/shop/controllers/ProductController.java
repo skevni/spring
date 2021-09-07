@@ -27,8 +27,7 @@ public class ProductController {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
-        return productService.findAll(pageIndex - 1, 10)
-                .map(ProductDto::new);
+        return productService.findAll(pageIndex - 1, 10).map(ProductDto::new);
     }
 
     @GetMapping("/{id}")

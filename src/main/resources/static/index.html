@@ -29,13 +29,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#!/store">Каталог</a>
                     </li><li class="nav-item">
-                        <a class="nav-link" href="#!/create_product" ng-show="isUserLoggedIn()">Добавить товар</a>
+                        <a class="nav-link" href="#!/create_product" ng-show="isUserPrivileged()">Добавить товар</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/cart">Корзина</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/user_profile" ng-show="isUserLoggedIn()">Профиль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/users" ng-show="isAdmin()">Пользователи</a>
                     </li>
                     <li class="nav-item" ng-show="!isUserLoggedIn()">
                         <form class="align-middle" ng-submit="tryToAuth()">
@@ -55,6 +58,9 @@
                     <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
                         <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
                     </li>
+                    <li class="nav-item" ng-show="!isUserLoggedIn()" style="padding: 4px;">
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="redirectToRegistration()">Регистрация</button>
+                    </li>
                 </ul>
             </div>
 
@@ -69,6 +75,8 @@
     <script src="create_product/create_product.js"></script>
     <script src="cart/cart.js"></script>
     <script src="user_profile/userprofile.js"></script>
+    <script src="registration/registration.js"></script>
+    <script src="user_list/user_list.js"></script>
 </div>
 </body>
 </html>

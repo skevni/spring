@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.gb.sklyarov.shop.cart.CartsContent;
+import ru.gb.sklyarov.shop.cart.CartsItem;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 
@@ -53,7 +53,7 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
-    public void addProductToCart(CartsContent cartsContent){
-        cartService.add(cartsContent);
+    public void addProductToCart(CartsItem cartsItem){
+        cartService.add(cartsItem);
     }
 }

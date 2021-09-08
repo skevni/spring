@@ -3,7 +3,7 @@ package ru.gb.sklyarov.shop.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.cart.Cart;
-import ru.gb.sklyarov.shop.cart.CartsContent;
+import ru.gb.sklyarov.shop.cart.CartsItem;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import java.util.List;
 public class CartService {
     private final Cart cart;
 
-    public void add(CartsContent cartsContent) {
-        cart.add(cartsContent);
+    public void add(CartsItem cartsItem) {
+        cart.add(cartsItem);
     }
 
     public void delete(Long id) {
         cart.delete(id);
     }
 
-    public List<CartsContent> getCartContent() {
+    public List<CartsItem> getCartContent() {
         return cart.getCartsContents();
     }
 }

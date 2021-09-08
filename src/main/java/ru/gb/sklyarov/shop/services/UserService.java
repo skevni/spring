@@ -1,6 +1,7 @@
 package ru.gb.sklyarov.shop.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,23 +11,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.gb.sklyarov.shop.dtos.UserDto;
 import ru.gb.sklyarov.shop.entities.Authority;
 import ru.gb.sklyarov.shop.entities.Role;
 import ru.gb.sklyarov.shop.entities.User;
 import ru.gb.sklyarov.shop.repositories.UserRepository;
 
-import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import javax.persistence.EntityManager;
+import javax.security.auth.message.AuthException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
-
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -61,4 +62,30 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 
+    @SneakyThrows
+    @Transactional
+    public UserDto registration(UserDto userDto) {
+        if (passwordCompare(userDto.getPassword(), userDto.getConfirmation())) {
+            User user = new User();
+            user.setEmail(userDto.getEmail());
+            user.setUsername(userDto.getUsername());
+            user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+
+            user.setRoles(getDefaultUsersRole());
+            save(user);
+
+            return new UserDto(user);
+        }
+        throw new AuthException("Passwords don't match!");
+    }
+
+    private boolean passwordCompare(String password, String confirmation){
+        return password.equals(confirmation);
+    }
+
+    private Set<Role> getDefaultUsersRole(){
+        // TODO: реализовать выбор роли по умолчанию для регистрации новых пользователей
+
+        return new HashSet<>();
+    }
 }

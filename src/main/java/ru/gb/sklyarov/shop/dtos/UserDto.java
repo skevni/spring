@@ -10,12 +10,14 @@ import ru.gb.sklyarov.shop.entities.User;
 public class UserDto {
     private String username;
     private String password;
+    private String confirmation;
     private String email;
     private String authorities;
 
     public UserDto(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.confirmation = user.getPassword();
         this.email = user.getEmail();
 
         StringBuilder role_list = new StringBuilder();

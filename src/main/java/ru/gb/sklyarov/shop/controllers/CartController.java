@@ -2,7 +2,7 @@ package ru.gb.sklyarov.shop.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.sklyarov.shop.cart.CartsContent;
+import ru.gb.sklyarov.shop.cart.CartsItem;
 import ru.gb.sklyarov.shop.services.CartService;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public List<CartsContent> getCartsContent() {
+    public List<CartsItem> getCartsContent() {
         return cartService.getCartContent();
     }
 

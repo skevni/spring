@@ -49,19 +49,10 @@ public class AuthController {
     @PostMapping("/registration")
     public UserDto userRegistration(@RequestBody @Validated UserDto userDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            throw new DataValidationException(400, bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
+            throw new DataValidationException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
         }
-        User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoding(userDto.getPassword()));
 
-        Role role = new Role();
-        role.setName("USER");
-        user.setRoles(List.of(role));
-
-        userService.save(user);
-        return new UserDto(user);
+        return userService.registration(userDto);
     }
     private String passwordEncoding(String password) {
         return bCryptPasswordEncoder.encode(password);

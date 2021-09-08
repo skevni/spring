@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.sklyarov.shop.cart.CartsContent;
+import ru.gb.sklyarov.shop.cart.CartsItem;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
 import ru.gb.sklyarov.shop.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
@@ -45,7 +45,7 @@ public class ProductController {
     @PostMapping
     public ProductDto saveProduct(@RequestBody @Validated ProductDto productDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new DataValidationException(400, bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
+            throw new DataValidationException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
         }
         Product product = new Product();
         product.setTitle(productDto.getTitle());
@@ -76,7 +76,7 @@ public class ProductController {
     @PostMapping("/addToCart/{id}")
     public void addToCart(@PathVariable Long id) {
         Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found"));
-        productService.addProductToCart(new CartsContent(product.getId(), product.getTitle(), product.getPrice(), 1));
+        productService.addProductToCart(new CartsItem(product));
     }
 
 }

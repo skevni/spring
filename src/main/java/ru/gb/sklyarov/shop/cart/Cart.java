@@ -7,18 +7,18 @@ import java.util.List;
 
 @Component
 public class Cart {
-    private final List<CartsContent> cartsContents;
+    private final List<CartsItem> cartsContents;
 
     public Cart() {
         cartsContents = new ArrayList<>();
     }
 
-    public List<CartsContent> getCartsContents() {
+    public List<CartsItem> getCartsContents() {
         return cartsContents;
     }
 
 
-    public void add(CartsContent newCartsContent) {
+    public void add(CartsItem newCartsContent) {
         if (cartsContents.stream().anyMatch(c -> c.getTitle().equals(newCartsContent.getTitle()))) {
             cartsContents.stream().filter(c -> c.getTitle().equals(newCartsContent.getTitle())).findFirst().orElseThrow(() -> new RuntimeException("")).incrementAmount();
         } else {

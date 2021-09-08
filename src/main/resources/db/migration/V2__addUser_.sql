@@ -53,10 +53,10 @@ VALUES ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 
        ('superadmin', '$2y$04$r76P41tjVWWBI8dAspu7AuqHpym86Brl1tlSJkX9eOdz.5Den4J.2', 'superadmin@domain.su'); -- 111;
 
 insert into roles(name)
-values ('USER'),
-       ('ADMIN'),
-       ('SEPERUSER'),
-       ('SUPERADMIN');
+values ('ROLE_USER'),
+       ('ROLE_ADMIN'),
+       ('ROLE_SEPERUSER'),
+       ('ROLE_SUPERADMIN');
 
 insert into users_roles(user_id, role_id)
 values (1, 1),

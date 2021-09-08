@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
-    @Query("SELECT r FROM Role r WHERE name.equals('ROLE_USER')")
+    @Query("SELECT r FROM Role r WHERE r.name='ROLE_USER'")
     Collection<Role> findDefaultRole();
 }

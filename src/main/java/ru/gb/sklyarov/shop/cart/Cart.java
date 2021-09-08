@@ -38,7 +38,7 @@ public class Cart {
     public void delete(Long id) {
 //        cartsContents.remove(cartsContent);
         for (int i = 0; i < cartsContents.size(); i++) {
-            if (cartsContents.get(i).getId().equals(id)){
+            if (cartsContents.get(i).getId().equals(id)) {
                 cartsContents.remove(i);
                 return;
             }

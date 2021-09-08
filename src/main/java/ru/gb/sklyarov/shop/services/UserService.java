@@ -1,7 +1,6 @@
 package ru.gb.sklyarov.shop.services;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,15 +11,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gb.sklyarov.shop.configs.SecurityConfig;
 import ru.gb.sklyarov.shop.dtos.UserDto;
 import ru.gb.sklyarov.shop.entities.Authority;
 import ru.gb.sklyarov.shop.entities.Role;
 import ru.gb.sklyarov.shop.entities.User;
 import ru.gb.sklyarov.shop.repositories.UserRepository;
 
-import javax.persistence.EntityManager;
 import javax.security.auth.message.AuthException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,14 +66,15 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public UserDto registration(UserDto userDto) throws AuthException {
-        if (passwordCompare(userDto.getPassword(), userDto.getConfirmation())) {
+        if (userDto.getPassword().equals(userDto.getConfirmation())) {
             User user = new User();
             user.setEmail(userDto.getEmail());
             user.setUsername(userDto.getUsername());
+
             user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
             Collection<Role> default_role = userRepository.findDefaultRole();
 
-            if (default_role.isEmpty()){
+            if (default_role.isEmpty()) {
                 throw new AuthException("The role \"ROLE_USER\" was not found!");
             }
             user.setRoles(default_role);
@@ -81,9 +84,4 @@ public class UserService implements UserDetailsService {
         }
         throw new AuthException("Passwords don't match!");
     }
-
-    private boolean passwordCompare(String password, String confirmation) {
-        return password.equals(confirmation);
-    }
-
 }

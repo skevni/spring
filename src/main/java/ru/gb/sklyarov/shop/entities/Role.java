@@ -17,25 +17,21 @@ import java.util.Collection;
 @Getter
 @Setter
 public class Role {
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "roles_authorities", joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    Collection<Authority> authorities;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
     @Column(name = "name")
     @Range(max = 100, message = "The maximum name length must be not exceed 100")
     private String name;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "roles_authorities", joinColumns = @JoinColumn(name = "role_id"),
-    inverseJoinColumns = @JoinColumn(name = "authority_id"))
-    Collection<Authority> authorities;
 }

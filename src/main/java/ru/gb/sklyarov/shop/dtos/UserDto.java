@@ -21,10 +21,10 @@ public class UserDto {
         this.email = user.getEmail();
 
         StringBuilder role_list = new StringBuilder();
-        for (Role role: user.getRoles()){
+        for (Role role : user.getRoles()) {
             role_list.append(role.getName()).append(',');
         }
-        for (Role role: user.getRoles()){
+        for (Role role : user.getRoles()) {
             role.getAuthorities().forEach(authority -> role_list.append(authority.getName()).append(','));
         }
         role_list.setLength(role_list.length() - 1);

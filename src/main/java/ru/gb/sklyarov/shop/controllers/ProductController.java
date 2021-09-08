@@ -8,9 +8,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.sklyarov.shop.cart.CartsItem;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
+import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.services.ProductService;
 
 import java.util.List;

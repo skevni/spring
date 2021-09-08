@@ -7,6 +7,7 @@ angular.module('market-app').controller('cartController', function ($scope, $htt
             method: 'GET'
         }).then(function (response) {
             $scope.cart = response.data;
+            console.log($scope.cart);
         });
     }
 
@@ -37,24 +38,12 @@ angular.module('market-app').controller('cartController', function ($scope, $htt
         });
     }
 
-    $scope.сheckOut = function (){
-        $http({
-            url: applicationPath + 'cart/remove/' + productId,
-            method: 'GET'
-        })
-            .then(function (response) {
-                $scope.getCart();
-            });
+    $scope.checkOut = function (){
+        $location.path("/order_confirmation");
     }
 
     $scope.disabledCheckOut = function (){
-        $http({
-            url: applicationPath + 'cart/remove/' + productId,
-            method: 'GET'
-        })
-            .then(function (response) {
-                $scope.getCart();
-            });
+        alert("Для оформления заказа необходимо войти в учетную запись");
     }
 
     $scope.getCart();

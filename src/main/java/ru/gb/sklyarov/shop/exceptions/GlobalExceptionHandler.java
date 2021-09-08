@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> catchDataValidationException(DataValidationException ex) {
         return new ResponseEntity<>(new ShopError(HttpStatus.BAD_REQUEST.value(), ex.getMessages()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<?> catchShopAuthException(ShopAuthException ex) {
+        return new ResponseEntity<>(new ShopError(HttpStatus.UNAUTHORIZED.value(), ex.getMessages()), HttpStatus.UNAUTHORIZED);
+    }
 }

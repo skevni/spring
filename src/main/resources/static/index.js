@@ -25,6 +25,10 @@
                 templateUrl: "cart/cart.html",
                 controller: "cartController"
             })
+            .when('/order_confirmation', {
+                templateUrl: "order_confirmation/order_confirmation.html",
+                controller: "orderConfirmationController"
+            })
             .when('/user_profile', {
                 templateUrl: "user_profile/userprofile.html",
                 controller: "userProfileController"

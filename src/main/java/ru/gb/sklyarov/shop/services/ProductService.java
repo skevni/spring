@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.gb.sklyarov.shop.cart.CartsItem;
+import ru.gb.sklyarov.shop.dtos.CartItem;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 
@@ -16,7 +16,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-    private final CartService cartService;
 
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
@@ -53,7 +52,4 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
-    public void addProductToCart(CartsItem cartsItem) {
-        cartService.add(cartsItem);
-    }
 }

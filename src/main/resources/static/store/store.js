@@ -19,7 +19,7 @@ angular.module('market-app').controller('storeController', function ($rootScope,
                 lastPage = true;
             }
             $scope.paginationArray = $rootScope.generatePagesIndexes(1, $scope.pageProducts.totalPages);
-            console.log($scope.paginationArray);
+
         })
     }
 
@@ -40,12 +40,11 @@ angular.module('market-app').controller('storeController', function ($rootScope,
         $location.path('/edit_product/' + productId);
     }
 
-    $scope.toCart = function (productId){
+    $scope.addToCart = function (productId){
         $http({
-            url: applicationPath + 'products/addToCart/' + productId,
-            method: 'POST'
+            url: applicationPath + 'cart/add/' + productId,
+            method: 'GET'
         }).then(function () {
-            alert("Товар добавлен в корзину");
         });
     }
     $scope.getAllProducts();

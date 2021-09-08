@@ -32,8 +32,8 @@ public class User {
     @Range(max = 50, message = "The maximum email length must be not exceed 50")
     @Column(name = "email")
     private String email;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;

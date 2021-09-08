@@ -2,10 +2,8 @@ package ru.gb.sklyarov.shop.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.sklyarov.shop.cart.CartsItem;
 import ru.gb.sklyarov.shop.services.CartService;
-
-import java.util.List;
+import ru.gb.sklyarov.shop.utils.Cart;
 
 @RestController
 @RequestMapping("api/v1/cart")
@@ -14,12 +12,22 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public List<CartsItem> getCartsContent() {
-        return cartService.getCartContent();
+    public Cart getCartsContent() {
+        return cartService.getCart();
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/remove/{id}")
     public void deleteCartsContent(@PathVariable(name = "id") Long id) {
-        cartService.delete(id);
+        cartService.removeItemFromCart(id);
+    }
+
+    @GetMapping("/add/{id}")
+    public void addToCart(@PathVariable Long id) {
+        cartService.addItemToCart(id);
+    }
+
+    @GetMapping("/reduce/{id}")
+    public void reduceItemInCart(@PathVariable Long id) {
+        cartService.reduceItemInCart(id);
     }
 }

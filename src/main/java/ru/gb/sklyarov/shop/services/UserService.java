@@ -62,16 +62,19 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 
-    @SneakyThrows
     @Transactional
-    public UserDto registration(UserDto userDto) {
+    public UserDto registration(UserDto userDto) throws AuthException {
         if (passwordCompare(userDto.getPassword(), userDto.getConfirmation())) {
             User user = new User();
             user.setEmail(userDto.getEmail());
             user.setUsername(userDto.getUsername());
             user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+            Collection<Role> default_role = userRepository.findDefaultRole();
 
-            user.setRoles(getDefaultUsersRole());
+            if (default_role.isEmpty()){
+                throw new AuthException("The role \"ROLE_USER\" was not found!");
+            }
+            user.setRoles(default_role);
             save(user);
 
             return new UserDto(user);
@@ -79,13 +82,8 @@ public class UserService implements UserDetailsService {
         throw new AuthException("Passwords don't match!");
     }
 
-    private boolean passwordCompare(String password, String confirmation){
+    private boolean passwordCompare(String password, String confirmation) {
         return password.equals(confirmation);
     }
 
-    private Set<Role> getDefaultUsersRole(){
-        // TODO: реализовать выбор роли по умолчанию для регистрации новых пользователей
-
-        return new HashSet<>();
-    }
 }

@@ -17,10 +17,12 @@ import ru.gb.sklyarov.shop.dtos.UserDto;
 import ru.gb.sklyarov.shop.entities.Role;
 import ru.gb.sklyarov.shop.entities.User;
 import ru.gb.sklyarov.shop.exceptions.DataValidationException;
+import ru.gb.sklyarov.shop.exceptions.ShopAuthException;
 import ru.gb.sklyarov.shop.exceptions.ShopError;
 import ru.gb.sklyarov.shop.services.UserService;
 import ru.gb.sklyarov.shop.utils.JwtTokenUtil;
 
+import javax.security.auth.message.AuthException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +54,11 @@ public class AuthController {
             throw new DataValidationException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
         }
 
-        return userService.registration(userDto);
+        try {
+            return userService.registration(userDto);
+        } catch (AuthException e) {
+            throw new ShopAuthException(List.of(e.getMessage()));
+        }
     }
     private String passwordEncoding(String password) {
         return bCryptPasswordEncoder.encode(password);

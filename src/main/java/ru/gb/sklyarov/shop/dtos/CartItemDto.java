@@ -6,7 +6,7 @@ import ru.gb.sklyarov.shop.entities.Product;
 
 @NoArgsConstructor
 @Data
-public class CartItem {
+public class CartItemDto {
 
     private Long id;
     private String title;
@@ -14,7 +14,7 @@ public class CartItem {
     private double totalPrice;
     private int quantity;
 
-    public CartItem(Product product) {
+    public CartItemDto(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();

@@ -3,7 +3,7 @@ package ru.gb.sklyarov.shop.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.sklyarov.shop.services.CartService;
-import ru.gb.sklyarov.shop.utils.Cart;
+import ru.gb.sklyarov.shop.utils.CartUtil;
 
 @RestController
 @RequestMapping("api/v1/cart")
@@ -12,7 +12,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public Cart getCartsContent() {
+    public CartUtil getCartsContent() {
         return cartService.getCart();
     }
 

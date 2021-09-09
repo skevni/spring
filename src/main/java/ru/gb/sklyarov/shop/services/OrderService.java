@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.entities.Order;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.repositories.OrderItemRepository;
 import ru.gb.sklyarov.shop.repositories.OrderRepository;
 
 import java.util.List;

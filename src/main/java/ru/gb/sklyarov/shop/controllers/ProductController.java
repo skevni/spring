@@ -6,12 +6,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.sklyarov.shop.dtos.CartItem;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.services.CartService;
 import ru.gb.sklyarov.shop.services.ProductService;
 
 import java.util.List;

@@ -7,6 +7,7 @@ import ru.gb.sklyarov.shop.entities.OrderItem;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class OrderDto {
     private boolean isPayd;
     private String phone;
     private String address;
-    private List<OrderItem> orderItems;
+    private List<OrderItemDto> orderItemDtos;
 
     public OrderDto(Order order){
         this.id = order.getId();
@@ -24,6 +25,6 @@ public class OrderDto {
         this.orderDate = order.getOrderDate();
         this.phone = order.getPhone();
         this.address = order.getAddress();
-        this.orderItems = order.getOrderItems();
+        this.orderItemDtos = order.getOrderItems().stream().map(OrderItemDto::new).collect(Collectors.toList());
     }
 }

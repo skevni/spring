@@ -11,10 +11,11 @@ angular.module('market-app').controller('orderConfirmationController', function 
     }
 
     $scope.createOrder = function () {
+        console.log($scope.cart);
         $http({
             url: applicationPath + 'orders',
             method: 'POST',
-            data: $scope.orderDetails
+            data: $scope.cart
         }).then(function (response) {
             alert('Ваш заказ успешно сформирован');
             $location.path('/');

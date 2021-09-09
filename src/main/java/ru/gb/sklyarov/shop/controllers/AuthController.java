@@ -32,7 +32,6 @@ public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) {

@@ -27,15 +27,14 @@
         </tr>
         </tbody>
     </table>
-<!--    <button type="button" class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.cartItems.length>0">Оформить заказ</button>-->
-<!--    <button type="button" class="btn btn-secondary" ng-click="disabledCheckOut()" ng-show="!isUserLoggedIn() && cart.cartItems.length>0">Оформить заказ</button>-->
-
-    <!--    <nav aria-label="Page navigation">-->
-    <!--        <ul class="pagination">-->
-    <!--            <li class="page-item" ng-repeat="pageIndex in paginationArray">-->
-    <!--                <button class="page-link" ng-click="getAllProducts(pageIndex)">{{pageIndex}}</button>-->
-    <!--            </li>-->
-    <!--        </ul>-->
-    <!--    </nav>-->
+    <br><br>
+    <h3>Детали заказа</h3>
+    <form novalidate ng-submit="createOrder()">
+        <input class="form-control" type="text" placeholder="Номер телефона получателя" ng-model="orderDetails.phone">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.address">
+        <p></p>
+        <button type="submit" class="btn btn-primary">Оформить заказ</button>
+    </form>
 
 </div>

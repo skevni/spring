@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
+    private final OrderItemService orderItemService;
     private final ProductService productService;
     private final UserService userService;
 
@@ -62,7 +62,7 @@ public class OrderService {
             orderItems.add(orderItem);
 
         }
-        orderItemRepository.saveAll(orderItems);
+        orderItemService.saveAll(orderItems);
     }
 
     public Product getProductById(Long id) {

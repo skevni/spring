@@ -25,13 +25,12 @@ public class OrderItem {
     @Column(name = "quantity")
     private int quantity;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "order_id")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @ManyToOne
-    @JoinTable(name = "products", joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
 }

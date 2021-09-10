@@ -11,6 +11,7 @@ import ru.gb.sklyarov.shop.entities.Order;
 import ru.gb.sklyarov.shop.entities.OrderItem;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
+import ru.gb.sklyarov.shop.repositories.OrderItemRepository;
 import ru.gb.sklyarov.shop.repositories.OrderRepository;
 
 import java.security.Principal;
@@ -23,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
     private final ProductService productService;
     private final UserService userService;
 
@@ -39,27 +41,28 @@ public class OrderService {
     }
 
     @Transactional
-    public Order saveOrderWithOrderItems(OrderDto orderDto, String currentUser) {
+    public void saveOrderWithOrderItems(OrderDto orderDto, String currentUser) {
         Order order = new Order();
         order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
         order.setOrderDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
         order.setUser(userService.findByUsername(currentUser).orElseThrow(()-> new UsernameNotFoundException("User " + currentUser +" not found in the database.")));
 
+        orderRepository.save(order);
+
         List<OrderItem> orderItems = new ArrayList<>();
-        for (OrderItemDto orderItemdto : orderDto.getOrderItemDtos()) {
+
+        for (OrderItemDto orderItemdto : orderDto.getCartItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setPrice(orderItemdto.getPrice());
             orderItem.setTotalPrice(orderItemdto.getTotalPrice());
             orderItem.setQuantity(orderItemdto.getQuantity());
-            orderItem.setProduct(getProductById(orderItemdto.getProduct_id()));
+            orderItem.setProduct(getProductById(orderItemdto.getId()));
+            orderItem.setOrder(order);
             orderItems.add(orderItem);
+
         }
-        order.setOrderItems(orderItems);
-
-        saveOrder(order);
-
-        return orderRepository.save(order);
+        orderItemRepository.saveAll(orderItems);
     }
 
     public Product getProductById(Long id){

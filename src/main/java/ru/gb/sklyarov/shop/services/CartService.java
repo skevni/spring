@@ -43,7 +43,4 @@ public class CartService {
         cart.clear();
     }
 
-    public Product getProductById(Long id){
-        return productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Cann't find product by ID"));
-    }
 }

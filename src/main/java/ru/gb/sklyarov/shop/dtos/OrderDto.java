@@ -12,17 +12,11 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class OrderDto {
-    private Long id;
-    private LocalDateTime orderDate;
-    private boolean isPayd;
     private String phone;
     private String address;
     private List<OrderItemDto> orderItemDtos;
 
     public OrderDto(Order order){
-        this.id = order.getId();
-        this.isPayd = order.isPaid();
-        this.orderDate = order.getOrderDate();
         this.phone = order.getPhone();
         this.address = order.getAddress();
         this.orderItemDtos = order.getOrderItems().stream().map(OrderItemDto::new).collect(Collectors.toList());

@@ -10,4 +10,5 @@ import lombok.Setter;
 public class OrderDetailsDto {
     private String phone;
     private String address;
+    //TODO: удалить класс
 }

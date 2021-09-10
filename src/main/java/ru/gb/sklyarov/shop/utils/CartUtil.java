@@ -60,10 +60,11 @@ public class CartUtil {
         recalculate();
     }
 
-    public void clear(){
+    public void clear() {
         cartItems.clear();
         totalPrice = 0;
     }
+
     private void recalculate() {
         totalPrice = 0;
         for (CartItemDto item : cartItems) {

@@ -18,7 +18,7 @@ public class OrderDto {
     private String address;
     private List<OrderItemDto> cartItems;
 
-    public OrderDto(Order order){
+    public OrderDto(Order order) {
         this.phone = order.getPhone();
         this.address = order.getAddress();
         this.cartItems = order.getOrderItems().stream().map(OrderItemDto::new).collect(Collectors.toList());

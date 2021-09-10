@@ -12,7 +12,7 @@ import java.util.List;
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
-    public void saveAll(List<OrderItem> orderItems){
+    public void saveAll(List<OrderItem> orderItems) {
         orderItemRepository.saveAll(orderItems);
     }
 }

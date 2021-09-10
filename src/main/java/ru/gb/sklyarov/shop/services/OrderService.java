@@ -46,7 +46,7 @@ public class OrderService {
         order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
         order.setOrderDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-        order.setUser(userService.findByUsername(currentUser).orElseThrow(()-> new UsernameNotFoundException("User " + currentUser +" not found in the database.")));
+        order.setUser(userService.findByUsername(currentUser).orElseThrow(() -> new UsernameNotFoundException("User " + currentUser + " not found in the database.")));
 
         orderRepository.save(order);
 
@@ -65,7 +65,7 @@ public class OrderService {
         orderItemRepository.saveAll(orderItems);
     }
 
-    public Product getProductById(Long id){
-        return productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Cann't find product by ID"));
+    public Product getProductById(Long id) {
+        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cann't find product by ID"));
     }
 }

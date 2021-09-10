@@ -30,7 +30,7 @@ public class Cart {
 
     @ManyToOne
     @JoinTable(name = "users", joinColumns = @JoinColumn(name = "id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private User user;
 
     @ManyToOne

@@ -23,11 +23,4 @@ public class OrderItemDto {
         this.id = orderItem.getProduct().getId();
     }
 
-    public OrderItemDto(CartItemDto cartItemDto) {
-        this.title = cartItemDto.getTitle();
-        this.price = cartItemDto.getPrice();
-        this.quantity = cartItemDto.getQuantity();
-        this.totalPrice = cartItemDto.getTotalPrice();
-        this.product_id = cartItemDto.getId();
-    }
 }

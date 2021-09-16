@@ -48,8 +48,6 @@ public class OrderService {
         order.setOrderDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
         order.setUser(userService.findByUsername(currentUser).orElseThrow(() -> new UsernameNotFoundException("User " + currentUser + " not found in the database.")));
 
-        orderRepository.save(order);
-
         List<OrderItem> orderItems = new ArrayList<>();
 
         for (OrderItemDto orderItemdto : orderDto.getCartItems()) {
@@ -62,7 +60,9 @@ public class OrderService {
             orderItems.add(orderItem);
 
         }
-        orderItemService.saveAll(orderItems);
+        order.setOrderItems(orderItems);
+        orderRepository.save(order);
+//        orderItemService.saveAll(orderItems);
     }
 
     public Product getProductById(Long id) {

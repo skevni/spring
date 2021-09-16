@@ -1,7 +1,6 @@
 package ru.gb.sklyarov.shop.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,10 +10,8 @@ import ru.gb.sklyarov.shop.entities.Order;
 import ru.gb.sklyarov.shop.entities.OrderItem;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.repositories.OrderItemRepository;
 import ru.gb.sklyarov.shop.repositories.OrderRepository;
 
-import java.security.Principal;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,7 +59,6 @@ public class OrderService {
         }
         order.setOrderItems(orderItems);
         orderRepository.save(order);
-//        orderItemService.saveAll(orderItems);
     }
 
     public Product getProductById(Long id) {

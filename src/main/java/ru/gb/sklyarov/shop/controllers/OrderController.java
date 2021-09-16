@@ -1,18 +1,13 @@
 package ru.gb.sklyarov.shop.controllers;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import ru.gb.sklyarov.shop.dtos.OrderDto;
-
 import ru.gb.sklyarov.shop.services.CartService;
 import ru.gb.sklyarov.shop.services.OrderService;
-import ru.gb.sklyarov.shop.services.UserService;
 
-import javax.management.remote.JMXPrincipal;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;

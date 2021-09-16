@@ -3,11 +3,7 @@ package ru.gb.sklyarov.shop.dtos;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.gb.sklyarov.shop.entities.Order;
-import ru.gb.sklyarov.shop.entities.OrderItem;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

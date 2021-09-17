@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.utils.Cart;
+import ru.gb.sklyarov.shop.utils.CartUtil;
 
 import javax.annotation.PostConstruct;
 
@@ -12,11 +12,11 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class CartService {
     private final ProductService productService;
-    private Cart cart;
+    private CartUtil cart;
 
     @PostConstruct
     public void init() {
-        this.cart = new Cart();
+        this.cart = new CartUtil();
     }
 
     public void addItemToCart(Long id) {
@@ -35,7 +35,12 @@ public class CartService {
         cart.reduce(id);
     }
 
-    public Cart getCart() {
+    public CartUtil getCart() {
         return cart;
     }
+
+    public void clearCart() {
+        cart.clear();
+    }
+
 }

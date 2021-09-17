@@ -2,7 +2,7 @@ package ru.gb.sklyarov.shop.utils;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.gb.sklyarov.shop.dtos.CartItem;
+import ru.gb.sklyarov.shop.dtos.CartItemDto;
 import ru.gb.sklyarov.shop.entities.Product;
 
 import java.util.ArrayList;
@@ -11,26 +11,26 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Cart {
-    private List<CartItem> cartItems;
+public class CartUtil {
+    private List<CartItemDto> cartItems;
     private double totalPrice;
 
-    public Cart() {
+    public CartUtil() {
         cartItems = new ArrayList<>();
     }
 
-    public List<CartItem> getCartItems() {
+    public List<CartItemDto> getCartItems() {
         return cartItems;
     }
 
 
     public void add(Product product) {
-        cartItems.add(new CartItem(product));
+        cartItems.add(new CartItemDto(product));
         recalculate();
     }
 
     public boolean add(Long id) {
-        for (CartItem item : cartItems) {
+        for (CartItemDto item : cartItems) {
             if (item.getId().equals(id)) {
                 item.changeQuantity(1);
                 recalculate();
@@ -41,8 +41,8 @@ public class Cart {
     }
 
     public void reduce(Long id) {
-        for (Iterator<CartItem> iterator = cartItems.iterator(); iterator.hasNext(); ) {
-            CartItem item = iterator.next();
+        for (Iterator<CartItemDto> iterator = cartItems.iterator(); iterator.hasNext(); ) {
+            CartItemDto item = iterator.next();
             if (item.getId().equals(id)) {
                 item.changeQuantity(-1);
 
@@ -60,13 +60,14 @@ public class Cart {
         recalculate();
     }
 
-    public void clear(){
+    public void clear() {
         cartItems.clear();
         totalPrice = 0;
     }
+
     private void recalculate() {
         totalPrice = 0;
-        for (CartItem item : cartItems) {
+        for (CartItemDto item : cartItems) {
             totalPrice += item.getTotalPrice();
         }
     }

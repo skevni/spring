@@ -91,7 +91,7 @@ angular.module('market-app').controller('indexController', function ($rootScope,
         $http.defaults.headers.common.Authorization = '';
     };
 
-    $scope.isUserLoggedIn = function () {
+    $rootScope.isUserLoggedIn = function () {
         if ($localStorage.webUserStorage) {
             return true;
         } else {
@@ -99,12 +99,12 @@ angular.module('market-app').controller('indexController', function ($rootScope,
         }
     };
     // TODO: сделать доступ только, если пользователь имеет право добавлять продукты
-    $scope.isUserPrivileged = function(){
-        return $scope.isUserLoggedIn();
+    $rootScope.isUserPrivileged = function(){
+        return $rootScope.isUserLoggedIn();
     };
     // TODO: сделать доступ только для админа или суперадмина
-    $scope.isAdmin = function(){
-        return $scope.isUserLoggedIn();
+    $rootScope.isAdmin = function(){
+        return $rootScope.isUserLoggedIn();
     };
 
     $scope.redirectToRegistration = function(){

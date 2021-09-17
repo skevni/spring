@@ -17,7 +17,6 @@ import java.util.Collection;
 @Getter
 @Setter
 public class Role {
-//    (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToMany
     @JoinTable(name = "roles_authorities", joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))

@@ -3,24 +3,24 @@ angular.module('market-app').controller('editProductController', function ($scop
 
     $scope.prepareProductForUpdate = function () {
         $http.get(applicationPath + 'products/' + $routeParams.productId)
-            .then(function successCallback(response){
+            .then(function successCallback(response) {
                 $scope.updated_product = response.data;
-            }, function failureCallback (response){
+            }, function failureCallback(response) {
                 alert(response.data.messages);
                 $location.path('/store');
             });
     }
 
-    $scope.updateProduct = function(){
+    $scope.updateProduct = function () {
         $http({
             url: applicationPath + 'products/',
             data: $scope.updated_product,
             method: 'PUT'
-        }).then(function successCallback(response){
+        }).then(function successCallback(response) {
             $scope.updateProduct = null;
             alert('Продукт успешно обновлен');
             $location.path('/store');
-        }, function failureCallback (response) {
+        }, function failureCallback(response) {
             alert(response.data.messages)
         })
     }

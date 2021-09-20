@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.sklyarov.shop.dtos.OrderDto;
-import ru.gb.sklyarov.shop.services.CartService;
 import ru.gb.sklyarov.shop.services.OrderService;
 
 import java.security.Principal;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/orders")
 public class OrderController {
-    private final CartService cartService;
     private final OrderService orderService;
 
     @PostMapping
@@ -24,12 +22,12 @@ public class OrderController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         orderService.saveOrderWithOrderItems(orderDto, authentication.getName());
-        cartService.clearCart();
+
     }
 
     @GetMapping
-    public List<OrderDto> getUserOrders(@RequestBody Principal principal) {
-        return orderService.findAllOrders().stream().filter(o -> o.getUser().getUsername().equals(principal.getName())).map(OrderDto::new).collect(Collectors.toList());
+    public List<OrderDto> getUserOrders(Principal principal) {
+        return orderService.findAllByUsername(principal.getName()).stream().map(OrderDto::new).collect(Collectors.toList());
     }
 
 }

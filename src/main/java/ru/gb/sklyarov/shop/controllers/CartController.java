@@ -1,9 +1,12 @@
 package ru.gb.sklyarov.shop.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.gb.sklyarov.shop.services.CartService;
-import ru.gb.sklyarov.shop.utils.CartUtil;
+import ru.gb.sklyarov.shop.utils.Cart;
 
 @RestController
 @RequestMapping("api/v1/cart")
@@ -11,23 +14,23 @@ import ru.gb.sklyarov.shop.utils.CartUtil;
 public class CartController {
     private final CartService cartService;
 
-    @GetMapping
-    public CartUtil getCartsContent() {
-        return cartService.getCart();
+    @GetMapping("/{cartId}")
+    public Cart getCartsContent(@PathVariable(name = "cartId") String cartId) {
+        return cartService.getCart(cartId);
     }
 
-    @GetMapping("/remove/{id}")
-    public void deleteCartsContent(@PathVariable(name = "id") Long id) {
-        cartService.removeItemFromCart(id);
+    @GetMapping("/{cartId}/remove/{id}")
+    public void deleteCartsContent(@PathVariable(name = "id") Long id, @PathVariable(name = "cartId") String cartId) {
+        cartService.removeItemFromCart(cartId, id);
     }
 
-    @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id) {
-        cartService.addItemToCart(id);
+    @GetMapping("/{cartId}/add/{id}")
+    public void addToCart(@PathVariable Long id, @PathVariable(name = "cartId") String cartId) {
+        cartService.addItemToCart(cartId, id);
     }
 
-    @GetMapping("/reduce/{id}")
-    public void reduceItemInCart(@PathVariable Long id) {
-        cartService.reduceItemInCart(id);
+    @GetMapping("/{cartId}/reduce/{id}")
+    public void reduceItemInCart(@PathVariable Long id, @PathVariable(name = "cartId") String cartId) {
+        cartService.reduceItemInCart(cartId, id);
     }
 }

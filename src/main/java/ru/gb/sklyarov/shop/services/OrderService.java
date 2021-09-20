@@ -8,7 +8,6 @@ import ru.gb.sklyarov.shop.dtos.OrderDto;
 import ru.gb.sklyarov.shop.dtos.OrderItemDto;
 import ru.gb.sklyarov.shop.entities.Order;
 import ru.gb.sklyarov.shop.entities.OrderItem;
-import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.repositories.OrderRepository;
 
@@ -21,9 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final OrderItemService orderItemService;
     private final ProductService productService;
     private final UserService userService;
+    private final CartService cartService;
 
     public Order findOrderById(Long id) {
         return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
@@ -52,16 +51,18 @@ public class OrderService {
             orderItem.setPrice(orderItemdto.getPrice());
             orderItem.setTotalPrice(orderItemdto.getTotalPrice());
             orderItem.setQuantity(orderItemdto.getQuantity());
-            orderItem.setProduct(getProductById(orderItemdto.getId()));
+            orderItem.setProduct(productService.findById(orderItemdto.getId()).orElseThrow(() -> new ResourceNotFoundException("Cann't find product by ID")));
             orderItem.setOrder(order);
             orderItems.add(orderItem);
 
         }
         order.setOrderItems(orderItems);
         orderRepository.save(order);
+
+        cartService.clearCart("cart_shop_" + currentUser);
     }
 
-    public Product getProductById(Long id) {
-        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cann't find product by ID"));
+    public List<Order> findAllByUsername(String username) {
+        return orderRepository.findByUsername(username);
     }
 }

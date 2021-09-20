@@ -1,19 +1,22 @@
-angular.module('market-app').controller('cartController', function ($scope, $http, $location) {
+angular.module('market-app').controller('cartController', function ($scope, $http, $location, $localStorage) {
     const applicationPath = 'http://localhost:8189/api/v1/'
 
     $scope.getCart = function () {
+        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + 'cart',
+            url: applicationPath + 'cart/' + cartId,
             method: 'GET'
         }).then(function (response) {
             $scope.cart = response.data;
+            $localStorage.cartId = response.data.cartId;
             console.log($scope.cart);
         });
     }
 
     $scope.reduceItem = function (productId) {
+        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + 'cart/reduce/' + productId,
+            url: applicationPath + cartId + '/cart/reduce/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.getCart();
@@ -21,28 +24,30 @@ angular.module('market-app').controller('cartController', function ($scope, $htt
     }
 
     $scope.increaseItem = function (productId) {
+        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + 'cart/add/' + productId,
+            url: applicationPath + cartId + '/cart/add/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.getCart();
         });
     }
-    $scope.removeItem = function (productId){
+    $scope.removeItem = function (productId) {
+        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + 'cart/remove/' + productId,
+            url: applicationPath + cartId + '/cart/remove/' + productId,
             method: 'GET'
         })
-        .then(function (response) {
-            $scope.getCart();
-        });
+            .then(function (response) {
+                $scope.getCart();
+            });
     }
 
-    $scope.checkOut = function (){
+    $scope.checkOut = function () {
         $location.path("/order_confirmation");
     }
 
-    $scope.disabledCheckOut = function (){
+    $scope.disabledCheckOut = function () {
         alert("Для оформления заказа необходимо войти в учетную запись");
     }
 

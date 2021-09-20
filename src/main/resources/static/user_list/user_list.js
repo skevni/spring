@@ -5,10 +5,10 @@ angular.module('market-app').controller('usersController', function ($scope, $ht
         $http({
             url: applicationPath + 'users/' + user_id,
             method: 'PUT'
-            })
-            .then(function successCallback(response){
+        })
+            .then(function successCallback(response) {
                 $location.path("/users");
-            }, function failureCallback (response){
+            }, function failureCallback(response) {
                 alert(response.data.messages);
             });
     };
@@ -18,10 +18,10 @@ angular.module('market-app').controller('usersController', function ($scope, $ht
             url: applicationPath + 'users',
             method: 'DELETE',
             data: $scope.pu
-            })
-            .then(function successCallback(response){
+        })
+            .then(function successCallback(response) {
                 $location.path("/users");
-            }, function failureCallback (response){
+            }, function failureCallback(response) {
                 alert(response.data.messages);
             });
     };

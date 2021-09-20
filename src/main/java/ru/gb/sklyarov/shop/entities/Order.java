@@ -13,31 +13,40 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "orders")
+@NamedEntityGraph(
+        name = "orders.for-front",
+        attributeNodes = {
+                @NamedAttributeNode(value = "orderItems", subgraph = "items-products")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "items-products",
+                        attributeNodes = {
+                                @NamedAttributeNode("product")
+                        }
+                )
+        }
+)
 public class Order {
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    List<OrderItem> orderItems;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @Column(name = "order_date")
     private LocalDateTime orderDate;
-
     @Column(name = "is_paid")
     private boolean isPaid;
-
     @Column(name = "phone")
     private String phone;
-
     @Column(name = "address")
     private String address;
-
+    @Column(name = "total_price")
+    private double totalPrice;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    List<OrderItem> orderItems;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

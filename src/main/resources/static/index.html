@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en" id="">
+<html id="" lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Products</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" rel="stylesheet">
+    <script crossorigin="anonymous"
             integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-            crossorigin="anonymous"></script>
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
@@ -28,11 +28,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/store">Каталог</a>
-                    </li><li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#!/create_product" ng-show="isUserPrivileged()">Добавить товар</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/cart">Корзина</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/orders">Заказы</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/user_profile" ng-show="isUserLoggedIn()">Профиль</a>
@@ -43,13 +47,14 @@
                     <li class="nav-item" ng-show="!isUserLoggedIn()">
                         <form class="align-middle" ng-submit="tryToAuth()">
                             <div class="input-group input-group-sm" style="padding: 4px;">
-                                <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                                <input aria-describedby="inputGroup-sizing-sm" class="form-control" id="navLoginField" ng-model="user.username"
+                                       style="margin-left: 10px;" type="text">
 
-                                <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                                <input aria-describedby="inputGroup-sizing-sm" class="form-control" id="navPasswordField"
+                                       ng-model="user.password"
+                                       style="margin-left: 10px;" type="password">
 
-                                <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
+                                <button class="btn btn-outline-warning btn-sm" id="navLoginSubmit"
                                         style="margin-left: 10px;" type="submit">Войти
                                 </button>
                             </div>
@@ -59,7 +64,9 @@
                         <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
                     </li>
                     <li class="nav-item" ng-show="!isUserLoggedIn()" style="padding: 4px;">
-                        <button class="btn btn-outline-secondary btn-sm" ng-click="redirectToRegistration()">Регистрация</button>
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="redirectToRegistration()">
+                            Регистрация
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -75,6 +82,7 @@
     <script src="create_product/create_product.js"></script>
     <script src="cart/cart.js"></script>
     <script src="order_confirmation/order_confirmation.js"></script>
+    <script src="orders/orders.js"></script>
     <script src="user_profile/userprofile.js"></script>
     <script src="registration/registration.js"></script>
     <script src="user_list/user_list.js"></script>

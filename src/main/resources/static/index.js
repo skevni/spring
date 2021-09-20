@@ -41,6 +41,10 @@
                 templateUrl: "user_list/user_list.html",
                 controller: "usersController"
             })
+            .when('/orders', {
+                templateUrl: "orders/orders.html",
+                controller: "ordersController"
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -52,6 +56,7 @@
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webUserStorage.token;
         }
     }
+
 })();
 
 angular.module('market-app').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
@@ -92,22 +97,18 @@ angular.module('market-app').controller('indexController', function ($rootScope,
     };
 
     $rootScope.isUserLoggedIn = function () {
-        if ($localStorage.webUserStorage) {
-            return true;
-        } else {
-            return false;
-        }
+        return $localStorage.webUserStorage ? true : false;
     };
     // TODO: сделать доступ только, если пользователь имеет право добавлять продукты
-    $rootScope.isUserPrivileged = function(){
+    $rootScope.isUserPrivileged = function () {
         return $rootScope.isUserLoggedIn();
     };
     // TODO: сделать доступ только для админа или суперадмина
-    $rootScope.isAdmin = function(){
+    $rootScope.isAdmin = function () {
         return $rootScope.isUserLoggedIn();
     };
 
-    $scope.redirectToRegistration = function(){
+    $scope.redirectToRegistration = function () {
         $location.path("/registration");
     };
 

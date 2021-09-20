@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.sklyarov.shop.dtos.OrderDto;
-import ru.gb.sklyarov.shop.services.CartService;
 import ru.gb.sklyarov.shop.services.OrderService;
 
 import java.security.Principal;
@@ -27,8 +26,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderDto> getUserOrders(@RequestBody Principal principal) {
-        return orderService.findAllOrders().stream().filter(o -> o.getUser().getUsername().equals(principal.getName())).map(OrderDto::new).collect(Collectors.toList());
+    public List<OrderDto> getUserOrders(Principal principal) {
+        return orderService.findAllByUsername(principal.getName()).stream().map(OrderDto::new).collect(Collectors.toList());
     }
 
 }

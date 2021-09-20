@@ -11,11 +11,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CartUtil {
+public class Cart {
     private List<CartItemDto> cartItems;
     private double totalPrice;
 
-    public CartUtil() {
+    public Cart() {
         cartItems = new ArrayList<>();
     }
 

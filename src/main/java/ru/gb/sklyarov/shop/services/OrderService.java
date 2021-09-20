@@ -8,7 +8,6 @@ import ru.gb.sklyarov.shop.dtos.OrderDto;
 import ru.gb.sklyarov.shop.dtos.OrderItemDto;
 import ru.gb.sklyarov.shop.entities.Order;
 import ru.gb.sklyarov.shop.entities.OrderItem;
-import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.repositories.OrderRepository;
 
@@ -60,7 +59,10 @@ public class OrderService {
         order.setOrderItems(orderItems);
         orderRepository.save(order);
 
-        cartService.clearCart();
+        cartService.clearCart("cart_shop_" + currentUser);
     }
 
+    public List<Order> findAllByUsername(String username) {
+        return orderRepository.findByUsername(username);
+    }
 }

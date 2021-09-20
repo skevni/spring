@@ -40,7 +40,7 @@ angular.module('market-app').controller('storeController', function ($rootScope,
         $location.path('/edit_product/' + productId);
     }
 
-    $scope.addToCart = function (productId){
+    $scope.addToCart = function (productId) {
         $http({
             url: applicationPath + 'cart/add/' + productId,
             method: 'GET'

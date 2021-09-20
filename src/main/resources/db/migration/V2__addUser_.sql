@@ -1,9 +1,9 @@
 create table users
 (
-    id       bigserial,
-    username varchar(50)  not null unique,
-    password varchar(255) not null,
-    email    varchar(50) unique,
+    id         bigserial,
+    username   varchar(50)  not null unique,
+    password   varchar(255) not null,
+    email      varchar(50) unique,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
     primary key (id)
@@ -11,8 +11,8 @@ create table users
 
 create table roles
 (
-    id   serial,
-    name varchar(100),
+    id         serial,
+    name       varchar(100),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
     primary key (id)
@@ -29,8 +29,8 @@ create table users_roles
 
 create table authorities
 (
-    id   bigserial,
-    name varchar(100) not null unique,
+    id         bigserial,
+    name       varchar(100) not null unique,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
     primary key (id)

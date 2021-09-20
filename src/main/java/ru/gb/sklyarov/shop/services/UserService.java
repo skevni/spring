@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.gb.sklyarov.shop.configs.SecurityConfig;
 import ru.gb.sklyarov.shop.dtos.UserDto;
 import ru.gb.sklyarov.shop.entities.Authority;
 import ru.gb.sklyarov.shop.entities.Role;

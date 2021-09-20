@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/orders")
 public class OrderController {
-    private final CartService cartService;
     private final OrderService orderService;
 
     @PostMapping
@@ -24,7 +23,7 @@ public class OrderController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         orderService.saveOrderWithOrderItems(orderDto, authentication.getName());
-        cartService.clearCart();
+
     }
 
     @GetMapping

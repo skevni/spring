@@ -2,6 +2,8 @@ package ru.gb.sklyarov.shop.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,5 +39,13 @@ public class Cart {
     @JoinTable(name = "products", joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Product product;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 }

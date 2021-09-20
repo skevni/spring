@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+  redis-shop:
+#    image: 'bitnami/redis:latest'
+    image: "redis:alpine"
+    container_name: redis-shop
+    hostname: redis-shop
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    #  command: redis-server --requirepass some-secret  --stop-writes-on-bgsave-error no --save 900 1 --save 300 10 --save 60 10000
+    command: redis-server --stop-writes-on-bgsave-error no --save 900 1 --save 300 10 --save 60 10000
+    volumes:
+      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\redis\data:/data
+      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\redis\conf:/usr/local/etc/redis/redis.conf
+#    - /etc/localtime:/etc/localtime:ro

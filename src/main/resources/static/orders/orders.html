@@ -1,15 +1,40 @@
-<div>
+<div class="container">
     <p></p>
     <h3>Заказы</h3>
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Заказ</td>
-        </tr>
-        </thead>
+    <table class="table align-middle">
+        <thread scope="col">
+            <tr>
+                <th scope="col">ID заказа</th>
+                <th scope="col">Продукты</th>
+                <th scope="col">Стоимость заказа</th>
+            </tr>
+        </thread>
         <tbody>
         <tr ng-repeat="ord in orders">
-            <td>{{ord}}</td>
+            <th scope="row">{{ord.id}}</th>
+            <td>
+                <table class="table align-middle table-bordered">
+                    <thread>
+                        <tr>
+                            <th scope="col">ID продукта</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Количество</th>
+                            <th scope="col">Цена продукта</th>
+                            <th scope="col">Стоимость продукта</th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                    <tr ng-repeat="i in ord.cartItems">
+                        <td>{{i.product_id}}</td>
+                        <td>{{i.title}}</td>
+                        <td>{{i.quantity}}</td>
+                        <td>{{i.price}}</td>
+                        <td>{{i.totalPrice}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <th scope="row">{{ord.totalPrice}}</th>
         </tr>
         </tbody>
     </table>

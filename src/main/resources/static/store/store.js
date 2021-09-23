@@ -1,4 +1,4 @@
-angular.module('market-app').controller('storeController', function ($rootScope, $scope, $http, $location) {
+angular.module('market-app').controller('storeController', function ($rootScope, $scope, $http, $location, $localStorage) {
     const applicationPath = 'http://localhost:8189/api/v1/'
     let page = 1;
     let totalPages = 0;
@@ -42,7 +42,7 @@ angular.module('market-app').controller('storeController', function ($rootScope,
 
     $scope.addToCart = function (productId) {
         $http({
-            url: applicationPath + 'cart/add/' + productId,
+            url: applicationPath + 'cart/' + $localStorage.webShopGuestCartId + '/add/' + productId,
             method: 'GET'
         }).then(function () {
         });

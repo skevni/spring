@@ -2,21 +2,18 @@ angular.module('market-app').controller('cartController', function ($scope, $htt
     const applicationPath = 'http://localhost:8189/api/v1/'
 
     $scope.getCart = function () {
-        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + 'cart/' + cartId,
+            url: applicationPath + 'cart/' + $localStorage.webShopGuestCartId,
             method: 'GET'
         }).then(function (response) {
             $scope.cart = response.data;
             $localStorage.cartId = response.data.cartId;
-            console.log($scope.cart);
         });
     }
 
     $scope.reduceItem = function (productId) {
-        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + cartId + '/cart/reduce/' + productId,
+            url: applicationPath + 'cart/' + $localStorage.webShopGuestCartId + '/reduce/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.getCart();
@@ -24,18 +21,16 @@ angular.module('market-app').controller('cartController', function ($scope, $htt
     }
 
     $scope.increaseItem = function (productId) {
-        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + cartId + '/cart/add/' + productId,
+            url: applicationPath + 'cart/' + $localStorage.webShopGuestCartId + '/add/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.getCart();
         });
     }
     $scope.removeItem = function (productId) {
-        let cartId = $localStorage.cartId ? $localStorage.cartId : "getNewCartId";
         $http({
-            url: applicationPath + cartId + '/cart/remove/' + productId,
+            url: applicationPath + 'cart/' + $localStorage.webShopGuestCartId + '/remove/' + productId,
             method: 'GET'
         })
             .then(function (response) {

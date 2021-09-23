@@ -1,6 +1,7 @@
 <div class="container" ng-controller="cartController">
     <h3>Корзина</h3>
-    <table class="table">
+    <span ng-show="cart.cartItems.length == 0">Ваша корзина пуста</span>
+    <table class="table" ng-show="cart.cartItems.length > 0">
         <thead>
         <tr>
             <td>ID товара</td>

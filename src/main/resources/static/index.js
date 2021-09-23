@@ -52,8 +52,16 @@
     }
 
     function run($rootScope, $http, $localStorage) {
+        const applicationPath = 'http://localhost:8189/'
+
         if ($localStorage.webUserStorage) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webUserStorage.token;
+        }
+        if (!$localStorage.webShopGuestCartId) {
+            $http.get(applicationPath + 'api/v1/cart/generate')
+                .then(function successCallback(response) {
+                    $localStorage.webShopGuestCartId = response.data.value;
+                });
         }
     }
 
@@ -74,7 +82,11 @@ angular.module('market-app').controller('indexController', function ($rootScope,
                 $localStorage.webUserStorage = {username: $scope.user.username, token: response.data.token};
 
                 $scope.user.username = null;
-                $scope.user.password = null;
+                $scope.user.password = null
+
+                $http.get(applicationPath + 'api/v1/cart/' + $localStorage.webShopGuestCartId + '/merge')
+                    .then(function successCallback(response) {
+                    });
             }
         }).then(function errorCallback(response) {
         });

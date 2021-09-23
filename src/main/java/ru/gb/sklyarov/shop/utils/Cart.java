@@ -71,4 +71,22 @@ public class Cart {
             totalPrice += item.getTotalPrice();
         }
     }
+
+    public void merge(Cart another) {
+        for (CartItemDto anotherItem : another.cartItems) {
+            boolean merged = false;
+            for (CartItemDto item : cartItems) {
+                if (item.getId().equals(anotherItem.getId())) {
+                    item.changeQuantity(anotherItem.getQuantity());
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) {
+                cartItems.add(anotherItem);
+            }
+        }
+        recalculate();
+        another.clear();
+    }
 }

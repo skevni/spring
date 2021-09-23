@@ -18,10 +18,10 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public void createOrder(@RequestBody OrderDto orderDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        orderService.saveOrderWithOrderItems(orderDto, authentication.getName());
+    public void createOrder(Principal principal, @RequestBody OrderDto orderDto) {
+        // Principal vs Authentication
+        //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        orderService.saveOrderWithOrderItems(orderDto, principal);
 
     }
 

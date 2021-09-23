@@ -11,6 +11,7 @@ import ru.gb.sklyarov.shop.entities.OrderItem;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.repositories.OrderRepository;
 
+import java.security.Principal;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,12 +38,13 @@ public class OrderService {
     }
 
     @Transactional
-    public void saveOrderWithOrderItems(OrderDto orderDto, String currentUser) {
+    public void saveOrderWithOrderItems(OrderDto orderDto, Principal principal) {
         Order order = new Order();
         order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
         order.setOrderDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-        order.setUser(userService.findByUsername(currentUser).orElseThrow(() -> new UsernameNotFoundException("User " + currentUser + " not found in the database.")));
+        order.setUser(userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")));
+        order.setTotalPrice(orderDto.getTotalPrice());
 
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -59,7 +61,7 @@ public class OrderService {
         order.setOrderItems(orderItems);
         orderRepository.save(order);
 
-        cartService.clearCart("cart_shop_" + currentUser);
+        cartService.clearCart(principal, null);
     }
 
     public List<Order> findAllByUsername(String username) {

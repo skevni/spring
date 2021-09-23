@@ -7,7 +7,7 @@ import ru.gb.sklyarov.shop.entities.Product;
 @NoArgsConstructor
 @Data
 public class CartItemDto {
-
+//TODO: разобраться зачем у меня дублирующий класс OrderItemDto
     private Long id;
     private String title;
     private double price;

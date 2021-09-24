@@ -20,6 +20,7 @@ public class StatisticController {
 
     @GetMapping
     public List<StatisticDto> getStatistics() {
-        return statisticsService.findAllStatistics().stream().map(StatisticDto::new).collect(Collectors.toList());
+//        return statisticsService.findAllStatistics().stream().map(StatisticDto::new).collect(Collectors.toList());
+        return statisticsService.findAllStatisticsInRedis().stream().map(StatisticDto::new).collect(Collectors.toList());
     }
 }

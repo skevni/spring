@@ -27,7 +27,8 @@ public class ServiceAspect {
             Statistic statistic = new Statistic();
             statistic.setService_name(joinPoint.getTarget().getClass().getSimpleName());
             statistic.setDuration(duration);
-            statisticsService.save(statistic);
+//            statisticsService.save(statistic);
+            statisticsService.saveToRedis(statistic);
         }
 
         return out;

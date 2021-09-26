@@ -44,6 +44,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#!/users" ng-show="isAdmin()">Пользователи</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/statistics">Статистика</a>
+                    </li>
                     <li class="nav-item" ng-show="!isUserLoggedIn()">
                         <form class="align-middle" ng-submit="tryToAuth()">
                             <div class="input-group input-group-sm" style="padding: 4px;">
@@ -86,6 +89,8 @@
     <script src="user_profile/userprofile.js"></script>
     <script src="registration/registration.js"></script>
     <script src="user_list/user_list.js"></script>
+    <script src="statistics/statistics.js"></script>
+
 </div>
 </body>
 </html>

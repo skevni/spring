@@ -1,0 +1,36 @@
+<div class="container" ng-controller="cartController">
+    <h1>Корзина</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>ID товара</td>
+            <td>Наименование товара</td>
+            <td>Цена</td>
+            <td>Количество</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="c in cart">
+            <td>{{c.id}}</td>
+            <td>{{c.title}}</td>
+            <td>{{c.price}}</td>
+            <td>
+                {{c.amount}}
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" ng-click="deleteProduct(c.id)">Удалить</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<!--    <nav aria-label="Page navigation">-->
+<!--        <ul class="pagination">-->
+<!--            <li class="page-item" ng-repeat="pageIndex in paginationArray">-->
+<!--                <button class="page-link" ng-click="getAllProducts(pageIndex)">{{pageIndex}}</button>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+
+</div>

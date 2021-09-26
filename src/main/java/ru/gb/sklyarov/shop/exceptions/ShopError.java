@@ -1,19 +1,29 @@
 package ru.gb.sklyarov.shop.exceptions;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 public class ShopError {
     private int status;
-    private String message;
+    private List<String> messages;
     private Timestamp timestamp;
 
     public ShopError() {
     }
 
-    public ShopError(String message, int statusCode) {
-        this.message = message;
+    public ShopError(int statusCode, List<String> messages) {
+        this.messages = messages;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.status = statusCode;
+    }
+
+    public ShopError(int statusCode, String message) {
+        this(statusCode, List.of(message));
+    }
+
+    public ShopError(int statusCode, String... messages) {
+        this(statusCode, Arrays.asList(messages));
     }
 
     public int getStatus() {
@@ -24,12 +34,12 @@ public class ShopError {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public List<String> getMessages() {
+        return messages;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
     public Timestamp getTimestamp() {

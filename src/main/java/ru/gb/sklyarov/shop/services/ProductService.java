@@ -6,10 +6,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
+import ru.gb.sklyarov.shop.ws.products.ProductWs;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +53,29 @@ public class ProductService {
     public void deleteAll() {
         productRepository.deleteAll();
     }
+
+//    SOAP
+
+    public Optional<ProductWs> findByIdSoap(Long id) {
+        return productRepository.findById(id).map(this::productToProductWs);
+    }
+
+    public List<ProductWs> findAllSoap(){
+        return productRepository.findAll().stream().map(this::productToProductWs).collect(Collectors.toList());
+    }
+    private ProductWs productToProductWs(Product product){
+        ProductWs productWs = new ProductWs();
+        productWs.setId(product.getId());
+        productWs.setTitle(product.getTitle());
+        productWs.setPrice(product.getPrice());
+        return productWs;
+    }
+//    public static final Function<Product, ProductWs> productToProductWs = product ->{
+//        ProductWs productWs = new ProductWs();
+//        productWs.setId(product.getId());
+//        productWs.setTitle(product.getTitle());
+//        productWs.setPrice(product.getPrice());
+//        return productWs;
+//    };
 
 }

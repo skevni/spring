@@ -14,7 +14,7 @@ import ru.gb.sklyarov.shop.services.StatisticsService;
 public class ServiceAspect {
     private final StatisticsService statisticsService;
 
-    @Around("execution(public * ru.gb.sklyarov.shop.services.*.*(..))")
+//    @Around("execution(public * ru.gb.sklyarov.shop.services.*.*(..))")
     public Object collectingStatistics(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         Object out = joinPoint.proceed();

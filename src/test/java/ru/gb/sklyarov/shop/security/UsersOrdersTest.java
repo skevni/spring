@@ -57,7 +57,7 @@ public class UsersOrdersTest {
     @Test
     @WithMockUser(username = "John", roles = "User")
     public void securityGetNotYourOrders() throws Exception {
-        Principal principal = (UserPrincipal) () -> "John";
+        Principal principal = (UserPrincipal) () -> "Bob";
 
         Order order = new Order();
         order.setId(1L);
@@ -84,12 +84,12 @@ public class UsersOrdersTest {
 
         given(orderService.findAllByUsername(principal.getName())).willReturn(orders);
 
-        mockMvc.perform(get("/api/vi/orders").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/orders").contentType(MediaType.APPLICATION_JSON))
 //                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", is(orders.get(0).getId())));
+                .andExpect(jsonPath("$", hasSize(0)));
+//                .andExpect(jsonPath("$[0].id", is(orders.get(0).getId().intValue())));
 
     }
 }

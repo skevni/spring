@@ -24,6 +24,8 @@ import java.util.Collections;
 
 @SpringBootTest
 public class JwtFilterTest {
+
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
@@ -40,7 +42,11 @@ public class JwtFilterTest {
 //    }
     @Test
     public void testJwtFilter() throws Exception {
-        UserDetails userDetails = new User("test-user","test-password",Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+        String testRole = "ROLE_USER";
+        String testUser = "test-user";
+        String testPassword = "test-password";
+
+        UserDetails userDetails = new User(testUser,testPassword,Collections.singletonList(new SimpleGrantedAuthority(testRole)));
         String token = jwtTokenUtil.generateToken(userDetails);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -50,7 +56,7 @@ public class JwtFilterTest {
         MockFilterChain filterChain = new MockFilterChain();
         jwtRequestFilter.doFilter(request, response, filterChain);
         Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getName()).isEqualTo("test-user");
-        Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getCredentials().toString()).isEqualTo(token);
+        Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getName()).isEqualTo(testUser);
+        Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString()).isEqualTo(testRole);
     }
 }

@@ -19,7 +19,7 @@ import ru.gb.sklyarov.shop.utils.JwtTokenUtil;
 
 import java.util.Collections;
 
-@SpringBootTest
+@SpringBootTest(classes = {JwtTokenUtil.class, JwtRequestFilter.class})
 public class JwtFilterTest {
 
 

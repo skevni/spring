@@ -1,7 +1,6 @@
 package ru.gb.sklyarov.shop.security;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -34,19 +31,14 @@ public class JwtFilterTest {
 
     @MockBean
     private UserService userService;
-//    private
 
-//    @BeforeEach
-//    public void init() {
-//        SecurityContextHolder.getContext().setAuthentication(null);
-//    }
     @Test
     public void testJwtFilter() throws Exception {
         String testRole = "ROLE_USER";
         String testUser = "test-user";
         String testPassword = "test-password";
 
-        UserDetails userDetails = new User(testUser,testPassword,Collections.singletonList(new SimpleGrantedAuthority(testRole)));
+        UserDetails userDetails = new User(testUser, testPassword, Collections.singletonList(new SimpleGrantedAuthority(testRole)));
         String token = jwtTokenUtil.generateToken(userDetails);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -57,6 +49,6 @@ public class JwtFilterTest {
         jwtRequestFilter.doFilter(request, response, filterChain);
         Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getName()).isEqualTo(testUser);
-        Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString()).isEqualTo(testRole);
+        Assertions.assertThat(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString()).isEqualTo("[" + testRole + "]");
     }
 }

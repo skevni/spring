@@ -5,12 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import ru.gb.sklyarov.shop.dtos.OrderDto;
 import ru.gb.sklyarov.shop.entities.Order;
 import ru.gb.sklyarov.shop.entities.Role;
 import ru.gb.sklyarov.shop.entities.User;
@@ -22,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -85,11 +81,11 @@ public class UsersOrdersTest {
         given(orderService.findAllByUsername(principal.getName())).willReturn(orders);
 
         mockMvc.perform(get("/api/v1/orders").contentType(MediaType.APPLICATION_JSON))
-//                .andDo(print())
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(0)));
-//                .andExpect(jsonPath("$[0].id", is(orders.get(0).getId().intValue())));
+
 
     }
 }

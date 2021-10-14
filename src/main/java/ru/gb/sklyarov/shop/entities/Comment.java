@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
@@ -32,4 +31,5 @@ public class Comment {
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
 }

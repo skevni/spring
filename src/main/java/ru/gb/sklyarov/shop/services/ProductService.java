@@ -5,18 +5,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.gb.sklyarov.shop.dtos.CommentDto;
 import ru.gb.sklyarov.shop.entities.Comment;
 import ru.gb.sklyarov.shop.entities.Product;
-import ru.gb.sklyarov.shop.entities.User;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 import ru.gb.sklyarov.shop.ws.products.ProductWs;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,6 +88,24 @@ public class ProductService {
 
     public List<Comment> findCommentsByUserAndProduct(Principal principal, Long productId) {
         return commentService.findCommentsByUserAndProduct(userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")),
-                productRepository.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product id: " + productId + " not found in the repository!")));
+                productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product id: " + productId + " not found in the repository!")));
+    }
+
+    public List<Comment> findCommentsByProduct(Long productId) {
+        return commentService.findCommentsByProduct(productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product id: " + productId + " not found in the repository!")));
+    }
+
+    public void saveComment(CommentDto commentDto, Principal principal) {
+        Comment comment = new Comment();
+        comment.setComment(commentDto.getComment());
+        comment.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        comment.setProduct(productRepository.findById(commentDto.getProduct_id()).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + commentDto.getProduct_id() + " not found")));
+        comment.setUser(userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")));
+        commentService.save(comment);
+    }
+
+    public boolean findPurchase(Long id, Principal principal) {
+        long userId = userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")).getId();
+        return productRepository.productInPurchase(userId, id) != 0;
     }
 }

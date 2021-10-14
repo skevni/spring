@@ -19,6 +19,14 @@ public class CommentService {
     }
 
     public List<Comment> findCommentsByUserAndProduct(User user, Product product) {
-        return commentRepository.findCommentByUserAndProduct(user, product);
+        return commentRepository.findAllByUserAndProduct(user, product);
+    }
+
+    public List<Comment> findCommentsByProduct(Product product) {
+        return commentRepository.findAllByProduct(product);
+    }
+
+    public void save(Comment comment) {
+        commentRepository.save(comment);
     }
 }

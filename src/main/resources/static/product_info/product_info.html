@@ -8,13 +8,13 @@
         <b>Цена продукта          : </b>{{product.price}}<br>
     </p>
     <!-- ng-show="canUserComment(cm.user_id)" -->
-    <div>
-        <form id="commentForm" ng-submit="commentEdit(cm.id)">
+    <div ng-show="isUserBoughtProduct()">
+        <form id="commentForm" ng-submit="createComment()" >
 <!--        <form id="commentForm" method="POST" action="?process-form">-->
             <label for="userCommentTextarea" class="form-label">Введите ваш комментарий</label>
             <div class="input-group">
-                <textarea class="form-control" id="userCommentTextarea" rows="3"></textarea>
-                <button class="btn btn-primary" style="right: auto" ng-click="commentEdit(product.id)" type="submit">Добавить</button>
+                <textarea class="form-control" id="userCommentTextarea" ng-model="created_comment.comment" rows="3"></textarea>
+                <button class="btn btn-primary" style="right: auto" type="submit">Добавить</button>
             </div>
         </form>
 
@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="cm in comments">
-            <td>{{'Пользователь: ' + cm.user_name + 'Время: ' + cm.createdAt + '\n' +cm.comment}}</td>
+            <td><p>Пользователь: <b>{{ cm.username}}</b> Время: <b>{{cm.dateTime}}</b> </p> {{cm.comment}}</td>
             <td>
                 <button class="btn btn-primary" ng-click="commentEdit(cm.id)" ng-show="isUsersComment(cm.username)" type="button">Редактировать</button>
             </td>

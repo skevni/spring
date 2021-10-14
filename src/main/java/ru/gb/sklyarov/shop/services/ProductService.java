@@ -104,8 +104,8 @@ public class ProductService {
         commentService.save(comment);
     }
 
-    public boolean findPurchase(Long id, Principal principal) {
+    public boolean findPurchase(Long productId, Principal principal) {
         long userId = userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")).getId();
-        return productRepository.productInPurchase(userId, id) != 0;
+        return productRepository.productInPurchase(userId, productId) != 0;
     }
 }

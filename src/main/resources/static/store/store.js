@@ -47,5 +47,9 @@ angular.module('market-app').controller('storeController', function ($rootScope,
         }).then(function () {
         });
     }
+    $scope.productInfo = function (productId) {
+        $location.path('/products/' + productId + '/info');
+    }
+
     $scope.getAllProducts();
 });

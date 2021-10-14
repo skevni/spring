@@ -21,6 +21,10 @@
                 templateUrl: "create_product/create_product.html",
                 controller: "createProductController"
             })
+            .when('/products/:productId/info', {
+                templateUrl: "product_info/product_info.html",
+                controller: "productInfoController"
+            })
             .when('/cart', {
                 templateUrl: "cart/cart.html",
                 controller: "cartController"

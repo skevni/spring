@@ -6,9 +6,7 @@ angular.module('market-app').controller('userProfileController', function ($scop
             url: applicationPath + 'user_profile',
             method: 'GET'
         }).then(function (response) {
-            console.log(response);
             $scope.userProfile = response.data;
-            console.log($scope.userProfile);
         })
     }
 

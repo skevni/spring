@@ -53,7 +53,7 @@ public class UsersOrdersTest {
     @Test
     @WithMockUser(username = "John", roles = "User")
     public void securityGetNotYourOrders() throws Exception {
-        Principal principal = (UserPrincipal) () -> "Bob";
+        Principal principal = (UserPrincipal) () -> "John";
 
         Order order = new Order();
         order.setId(1L);

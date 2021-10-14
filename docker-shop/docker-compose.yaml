@@ -16,3 +16,19 @@ services:
       - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\redis\data:/data
       - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\redis\conf:/usr/local/etc/redis/redis.conf
 #    - /etc/localtime:/etc/localtime:ro
+
+  rabbitmq-shop:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq-shop'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\rebbitmq-data/data/:/var/lib/rabbitmq/
+      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\rebbitmq-data/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_go_net
+
+networks:
+  rabbitmq_go_net:
+    driver: bridge

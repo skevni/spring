@@ -3,21 +3,28 @@ package ru.gb.sklyarov.shop.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.gb.sklyarov.shop.dtos.CommentDto;
+import ru.gb.sklyarov.shop.entities.Comment;
 import ru.gb.sklyarov.shop.entities.Product;
+import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.repositories.ProductRepository;
 import ru.gb.sklyarov.shop.ws.products.ProductWs;
 
+import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CommentService commentService;
+    private final UserService userService;
 
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
@@ -60,10 +67,11 @@ public class ProductService {
         return productRepository.findById(id).map(this::productToProductWs);
     }
 
-    public List<ProductWs> findAllSoap(){
+    public List<ProductWs> findAllSoap() {
         return productRepository.findAll().stream().map(this::productToProductWs).collect(Collectors.toList());
     }
-    private ProductWs productToProductWs(Product product){
+
+    private ProductWs productToProductWs(Product product) {
         ProductWs productWs = new ProductWs();
         productWs.setId(product.getId());
         productWs.setTitle(product.getTitle());
@@ -78,4 +86,29 @@ public class ProductService {
 //        return productWs;
 //    };
 
+    public List<Comment> findCommentsByUserAndProduct(Principal principal, Long productId) {
+        return commentService.findCommentsByUserAndProduct(userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")),
+                productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product id: " + productId + " not found in the repository!")));
+    }
+
+    public List<Comment> findCommentsByProduct(Long productId) {
+        return commentService.findCommentsByProduct(productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product id: " + productId + " not found in the repository!")));
+    }
+
+    public void saveComment(CommentDto commentDto, Principal principal) {
+        Comment comment = new Comment();
+        comment.setComment(commentDto.getComment());
+        comment.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        comment.setProduct(productRepository.findById(commentDto.getProduct_id()).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + commentDto.getProduct_id() + " not found")));
+        comment.setUser(userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")));
+        commentService.save(comment);
+    }
+
+    public boolean findPurchase(Long productId, Principal principal) {
+        if (principal == null){
+            return false;
+        }
+        long userId = userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")).getId();
+        return productRepository.productInPurchase(userId, productId) != 0;
+    }
 }

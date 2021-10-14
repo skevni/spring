@@ -6,12 +6,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.sklyarov.shop.dtos.CommentDto;
 import ru.gb.sklyarov.shop.dtos.ProductDto;
+import ru.gb.sklyarov.shop.dtos.StringResponse;
 import ru.gb.sklyarov.shop.entities.Product;
 import ru.gb.sklyarov.shop.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.services.ProductService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +35,31 @@ public class ProductController {
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
         return new ProductDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found")));
+    }
+
+    @GetMapping("/{id}/info")
+    public ProductDto getProductDetailById(@PathVariable Long id) {
+        return new ProductDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product ID: " + id + " not found")));
+    }
+
+    @GetMapping("/{id}/comments/my")
+    public List<CommentDto> getUsersComments(@PathVariable Long id, Principal principal) {
+        return productService.findCommentsByUserAndProduct(principal, id).stream().map(CommentDto::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}/comments")
+    public List<CommentDto> getComments(@PathVariable Long id) {
+        return productService.findCommentsByProduct(id).stream().map(CommentDto::new).collect(Collectors.toList());
+    }
+
+    @PostMapping("/comment")
+    public void saveComment(@RequestBody CommentDto commentDto, Principal principal) {
+        productService.saveComment(commentDto, principal);
+    }
+
+    @GetMapping("/{id}/purchase")
+    public StringResponse getInformationAboutPurchase(@PathVariable Long id, Principal principal) {
+        return new StringResponse(Boolean.toString(productService.findPurchase(id, principal)));
     }
 
     @GetMapping("/filter")

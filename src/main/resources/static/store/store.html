@@ -19,11 +19,16 @@
                 <button class="btn btn-primary" ng-click="addToCart(p.id)" type="button">В корзину</button>
             </td>
             <td>
-                <button class="btn btn-primary" ng-click="editProduct(p.id)" type="button">Изменить</button>
+                <button class="btn btn-primary" ng-click="productInfo(p.id)" type="button">О продукте</button>
             </td>
-            <td>
-                <button class="btn btn-primary" ng-click="deleteProduct(p)" type="button">Удалить</button>
-            </td>
+            <!-- Пока не знаю нужны ли эти кнопки в продуктах. Если нужны, то показывать нужно только
+             с высокими привилегиями-->
+<!--            <td>-->
+<!--                <button class="btn btn-primary" ng-click="editProduct(p.id)" type="button">Изменить</button>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <button class="btn btn-primary" ng-click="deleteProduct(p)" type="button">Удалить</button>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>

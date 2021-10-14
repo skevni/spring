@@ -105,6 +105,9 @@ public class ProductService {
     }
 
     public boolean findPurchase(Long productId, Principal principal) {
+        if (principal == null){
+            return false;
+        }
         long userId = userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User " + principal.getName() + " not found in the database.")).getId();
         return productRepository.productInPurchase(userId, productId) != 0;
     }

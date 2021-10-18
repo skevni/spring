@@ -15,20 +15,44 @@ services:
     volumes:
       - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\redis\data:/data
       - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\redis\conf:/usr/local/etc/redis/redis.conf
-#    - /etc/localtime:/etc/localtime:ro
+      - /etc/localtime:/etc/localtime:ro
 
-  rabbitmq-shop:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq-shop'
+  shop-db:
+    image: postgres:12.8
+#    domainname: shop-domain
+    container_name: shop-db
+    build: ./flyway
     ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\rebbitmq-data/data/:/var/lib/rabbitmq/
-      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\rebbitmq-data/log/:/var/log/rabbitmq
-    networks:
-      - rabbitmq_go_net
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=shop
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+      interval: 5s
+      timeout: 1s
+      retries: 2
 
-networks:
-  rabbitmq_go_net:
-    driver: bridge
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://shop-db:5432/shop -schemas=public -user=postgres -password=postgres -connectRetries=30 migrate
+    volumes:
+      - ./flyway:/flyway/sql
+    depends_on:
+      - shop-db
+#  rabbitmq-shop:
+#    image: rabbitmq:3-management-alpine
+#    container_name: 'rabbitmq-shop'
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    volumes:
+#      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\rebbitmq-data/data/:/var/lib/rabbitmq/
+#      - C:\Ubuntu\MyDiskWin\Geekbrains\3quarter\rebbitmq-data/log/:/var/log/rabbitmq
+#    networks:
+#      - rabbitmq_go_net
+#
+#networks:
+#  rabbitmq_go_net:
+#    driver: bridge

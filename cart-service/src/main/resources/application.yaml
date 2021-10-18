@@ -1,0 +1,14 @@
+server:
+  port: 8191
+  servlet:
+    context-path: /market-cart
+spring:
+  redis:
+    host: localhost
+    port: 6379
+integration:
+  product-service:
+    url: http://localhost:8189
+utils:
+  cart:
+    prefix: web_shop_cart2_

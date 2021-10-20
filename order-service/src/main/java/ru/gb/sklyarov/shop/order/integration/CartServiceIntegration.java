@@ -35,6 +35,7 @@ public class CartServiceIntegration {
         }
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("username", username);
-        restTemplate.exchange(cartServiceUrl + "/clear", HttpMethod.GET, new HttpEntity<>(headers), void.class);
+        // не передаю cartId, Т.к. очистка производится только корзины аутентифицированного пользователя
+        restTemplate.exchange(cartServiceUrl + "/api/v1/cart/clear", HttpMethod.GET, new HttpEntity<>(headers), void.class);
     }
 }

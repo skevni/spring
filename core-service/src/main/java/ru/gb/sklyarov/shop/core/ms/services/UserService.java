@@ -11,11 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.gb.sklyarov.shop.core.ms.repositories.UserRepository;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
 import ru.gb.sklyarov.shop.core.ms.entities.Authority;
 import ru.gb.sklyarov.shop.core.ms.entities.Role;
 import ru.gb.sklyarov.shop.core.ms.entities.User;
+import ru.gb.sklyarov.shop.core.ms.repositories.UserRepository;
 import ru.gb.sklyarov.shop.core.ms.utils.EntityConverter;
 
 import javax.security.auth.message.AuthException;
@@ -34,6 +34,10 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public  Optional<User> findUserDtoByUsernameForFront(String username) {
+        return userRepository.findUserByUsernameForFront(username);
     }
 
     @Override

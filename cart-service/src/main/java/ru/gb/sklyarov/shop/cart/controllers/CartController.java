@@ -49,6 +49,11 @@ public class CartController {
         cartService.mergeCart(getCurrentCartUuid(username, null), getCurrentCartUuid(null,cartId));
     }
 
+    @GetMapping("/clear")
+    public void clear(@RequestHeader String username ) {
+        cartService.clearCart(getCurrentCartUuid(username, null));
+    }
+
     private String getCurrentCartUuid(String username, String uuid) {
         if (username != null) {
             return cartService.getCartUuidFromSuffix(username);

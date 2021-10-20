@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.gb.sklyarov.shop.common.dtos.UserDtoFront;
 import ru.gb.sklyarov.shop.core.ms.entities.User;
 import ru.gb.sklyarov.shop.core.ms.services.UserService;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
@@ -36,8 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{username}")
-    public UserDto getUserByUsername(@PathVariable(name = "username") String username) {
-        User user = userService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("Unable to find user by username: %s", username)));
-        return converter.userToDto(user);
+    public UserDtoFront getUserByUsername(@PathVariable(name = "username") String username) {
+        User user = userService.findUserDtoByUsernameForFront(username).orElseThrow(() -> new UsernameNotFoundException(String.format("Unable to find user by username: %s", username)));
+        return converter.userToDtoFront(user);
     }
 }

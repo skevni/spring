@@ -1,10 +1,7 @@
 package ru.gb.sklyarov.shop.core.ms.utils;
 
 import org.springframework.stereotype.Component;
-import ru.gb.sklyarov.shop.common.dtos.CommentDto;
-import ru.gb.sklyarov.shop.common.dtos.ProductDto;
-import ru.gb.sklyarov.shop.common.dtos.StatisticDto;
-import ru.gb.sklyarov.shop.common.dtos.UserDto;
+import ru.gb.sklyarov.shop.common.dtos.*;
 import ru.gb.sklyarov.shop.core.ms.entities.*;
 
 import java.text.DateFormat;
@@ -36,5 +33,9 @@ public class EntityConverter {
         role_list.setLength(role_list.length() - 1);
 
         return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getPassword(), user.getEmail(), role_list.toString());
+    }
+
+    public UserDtoFront userToDtoFront(User user) {
+        return new UserDtoFront(user.getId(), user.getUsername(), user.getPassword(), user.getPassword(), user.getEmail());
     }
 }

@@ -17,7 +17,7 @@ import java.util.Collection;
 @Getter
 @Setter
 public class Role {
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roles_authorities", joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
     Collection<Authority> authorities;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.gb.sklyarov.shop.common.dtos.ProductDto;
-import ru.gb.sklyarov.shop.common.dtos.UserDto;
+import ru.gb.sklyarov.shop.common.dtos.UserDtoFront;
 
 @Component
 @RequiredArgsConstructor
@@ -19,7 +19,7 @@ public class CoreServiceIntegration {
         return restTemplate.getForObject(coreServiceUrl + "/api/v1/products/" + productId, ProductDto.class);
     }
 
-    public UserDto getUserByUsername(String username) {
-        return restTemplate.getForObject(coreServiceUrl + "/api/v1/users/" + username, UserDto.class);
+    public UserDtoFront getUserByUsername(String username) {
+        return restTemplate.getForObject(coreServiceUrl + "/users/" + username, UserDtoFront.class);
     }
 }

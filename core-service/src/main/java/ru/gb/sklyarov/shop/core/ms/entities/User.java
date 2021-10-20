@@ -16,6 +16,14 @@ import java.util.Collection;
 @Getter
 @Setter
 @Table(name = "users")
+@NamedEntityGraph(name = "users.for-dto",
+        attributeNodes = {
+                @NamedAttributeNode(value = "roles", subgraph = "user-authorities")
+        }, subgraphs = {
+        @NamedSubgraph(name = "user-authorities", attributeNodes = {
+                @NamedAttributeNode("authorities")
+        })
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +41,7 @@ public class User {
     @Column(name = "email")
     private String email;
     //(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;

@@ -22,8 +22,11 @@ public class UserController {
     private final EntityConverter converter;
 
     @GetMapping("/user_profile")
-    public User showUserProfile(Principal principal) {
-        return userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(String.format("Unable to find user by username: %s", principal.getName())));
+    public UserDto showUserProfile(Principal principal) {
+        // Если страничка перезагружается без перелогирования, то славливаю NullPointerException
+        // principal = null почему-то
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(String.format("Unable to find user by username: %s", principal.getName())));
+        return converter.userToDto(user);
     }
 
     @GetMapping("/users")

@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: coreService
+          uri: http://localhost:8189/core-service
+          predicates:
+            - Path=/core-service/**
+          filters:
+            - StripPrefix=1

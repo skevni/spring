@@ -7,7 +7,6 @@ angular.module('market-app').controller('ordersController', function ($scope, $h
             url: applicationPath + 'orders',
             method: 'GET'
         }).then(function (response) {
-            console.log($scope.orders);
             $scope.orders = response.data;
         });
     };

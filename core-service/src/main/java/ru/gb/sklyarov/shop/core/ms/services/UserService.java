@@ -2,6 +2,7 @@ package ru.gb.sklyarov.shop.core.ms.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,10 +20,7 @@ import ru.gb.sklyarov.shop.core.ms.repositories.UserRepository;
 import ru.gb.sklyarov.shop.core.ms.utils.EntityConverter;
 
 import javax.security.auth.message.AuthException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,7 +64,9 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<User> findAllUsers(int pageIndex, int pageSize) {
-        return userRepository.findAll(PageRequest.of(pageIndex, pageSize));
+        List<User> userCollection = new ArrayList<>( userRepository.findAllUsers());
+
+        return new PageImpl<>(userCollection, PageRequest.of(pageIndex, pageSize), userCollection.size());
     }
 
     @Transactional
@@ -82,7 +82,7 @@ public class UserService implements UserDetailsService {
             if (default_role.isEmpty()) {
                 throw new AuthException("The role \"ROLE_USER\" was not found!");
             }
-            user.setRoles(default_role);
+            user.setRoles(new HashSet<>(default_role));
             save(user);
 
             return converter.userToDto(user);

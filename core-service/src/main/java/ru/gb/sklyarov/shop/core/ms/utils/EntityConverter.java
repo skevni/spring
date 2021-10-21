@@ -34,8 +34,4 @@ public class EntityConverter {
 
         return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getPassword(), user.getEmail(), role_list.toString());
     }
-
-    public UserDtoFront userToDtoFront(User user) {
-        return new UserDtoFront(user.getId(), user.getUsername(), user.getPassword(), user.getPassword(), user.getEmail());
-    }
 }

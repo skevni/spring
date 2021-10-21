@@ -23,4 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT r FROM Role r WHERE r.name='ROLE_USER'")
     Collection<Role> findDefaultRole();
+
+    @EntityGraph(value = "users.for-dto")
+    @Query("select usr from User usr")
+    Collection<User> findAllUsers();
 }

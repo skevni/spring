@@ -30,7 +30,7 @@ public class EntityConverter {
     // Хочу, чтобы показали какой-нибудь рабочий вариант.
     public OrderItemDto orderItemToDto(OrderItem orderItem) {
         ProductDto productDto = coreServiceIntegration.getProductById(orderItem.getProductId());
-        return new OrderItemDto(orderItem.getProductId(), productDto.getTitle(), orderItem.getPrice(), orderItem.getPrice(), orderItem.getQuantity());
+        return new OrderItemDto(orderItem.getProductId(), productDto.getTitle(), orderItem.getPrice(), orderItem.getTotalPrice(), orderItem.getQuantity());
     }
 
 

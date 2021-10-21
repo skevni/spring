@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -20,7 +20,7 @@ public class Role {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roles_authorities", joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
-    Collection<Authority> authorities;
+    Set<Authority> authorities;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

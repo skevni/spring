@@ -33,6 +33,7 @@ public class Cart {
             }
         }
         cartItems.add(new OrderItemDto(product.getId(), product.getTitle(), product.getPrice(), product.getPrice(), 1));
+        recalculate();
     }
 
     public void reduce(Long productId) {

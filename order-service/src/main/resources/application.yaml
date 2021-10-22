@@ -1,0 +1,21 @@
+server:
+  port: 8193
+  servlet:
+    context-path: /market-order
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/shop
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    open-in-view: false
+integration:
+  core-service:
+    url: http://localhost:8189
+  cart-service:
+    url: http://localhost:8191/market-cart

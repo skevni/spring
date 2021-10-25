@@ -6,7 +6,7 @@ spring:
     gateway:
       routes:
         - id: coreService
-          uri: http://localhost:8189/core-service
+          uri: http://localhost:8189
           predicates:
             - Path=/core-service/**
           filters:

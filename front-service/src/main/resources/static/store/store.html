@@ -1,0 +1,44 @@
+<div class="container" ng-controller="indexController">
+    <h1>Каталог</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Идентификатор</td>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in pageProducts.content">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="addToCart(p.id)" type="button">В корзину</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="productInfo(p.id)" type="button">О продукте</button>
+            </td>
+            <!-- Пока не знаю нужны ли эти кнопки в продуктах. Если нужны, то показывать нужно только
+             с высокими привилегиями-->
+<!--            <td>-->
+<!--                <button class="btn btn-primary" ng-click="editProduct(p.id)" type="button">Изменить</button>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <button class="btn btn-primary" ng-click="deleteProduct(p)" type="button">Удалить</button>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-repeat="pageIndex in paginationArray">
+                <button class="page-link" ng-click="getAllProducts(pageIndex)">{{pageIndex}}</button>
+            </li>
+        </ul>
+    </nav>
+
+</div>

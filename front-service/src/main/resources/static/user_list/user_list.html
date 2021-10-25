@@ -1,0 +1,37 @@
+<div class="container" ng-controller="usersController">
+    <h3>Список пользователей</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Идентификатор</td>
+            <td>Логин</td>
+            <td>email</td>
+            <td>права</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pu in pageUsers.content">
+            <td>{{pu.id}}</td>
+            <td>{{pu.username}}</td>
+            <td>{{pu.email}}</td>
+            <td>{{pu.authorities}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="editUser(pu.id)" type="button">Изменить</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="deleteUser(pu)" type="button">Удалить</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-repeat="pageIndex in paginationArray">
+                <button class="page-link" ng-click="getAllUsers(pageIndex)">{{pageIndex}}</button>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,40 @@
+<div class="container" ng-controller="orderConfirmationController">
+    <h3>Оформление заказа</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>ID товара</td>
+            <td>Наименование товара</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in cart.cartItems">
+            <td>{{item.product_id}}</td>
+            <td>{{item.title}}</td>
+            <td>
+                {{item.quantity}}
+            </td>
+            <td>{{item.price + ' x ' + item.quantity + ' = ' + item.totalPrice}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{'Итого: ' + cart.totalPrice }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <h3>Детали заказа</h3>
+    <form ng-submit="createOrder()" novalidate>
+        <input class="form-control" ng-model="cart.phone" placeholder="Номер телефона получателя" type="text">
+        <p></p>
+        <input class="form-control" ng-model="cart.address" placeholder="Адрес доставки" type="text">
+        <p></p>
+        <button class="btn btn-primary" type="submit">Оформить заказ</button>
+    </form>
+
+</div>

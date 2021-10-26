@@ -84,6 +84,10 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
         <!--	!!!	Без этой зависимости не хотел нормально устанавливаться плагин jaxb2-maven-plugin-->
         <!--        		<dependency>-->
         <!--        			<groupId>org.codehaus.mojo</groupId>-->

@@ -16,6 +16,7 @@
         <module>core-service</module>
         <module>order-service</module>
         <module>gateway-service</module>
+        <module>front-service</module>
     </modules>
 
     <groupId>ru.gb.sklyarov.shop</groupId>

@@ -1,0 +1,11 @@
+<div class="container" ng-controller="createProductController">
+    <h3>Добавить продукт</h3>
+    <br>
+    <form ng-submit="createProduct()" novalidate>
+        <input class="form-control" ng-model="created_product.title" placeholder="Название" type="text">
+        <br>
+        <input class="form-control" ng-model="created_product.price" placeholder="Цена" step="any" type="number">
+        <br>
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </form>
+</div>

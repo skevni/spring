@@ -46,11 +46,11 @@ public class CartController {
 
     @GetMapping("/{cartId}/merge")
     public void mergeCart(@RequestHeader String username, @PathVariable String cartId) {
-        cartService.mergeCart(getCurrentCartUuid(username, null), getCurrentCartUuid(null,cartId));
+        cartService.mergeCart(getCurrentCartUuid(username, null), getCurrentCartUuid(null, cartId));
     }
 
     @GetMapping("/clear")
-    public void clear(@RequestHeader String username ) {
+    public void clear(@RequestHeader String username) {
         cartService.clearCart(getCurrentCartUuid(username, null));
     }
 

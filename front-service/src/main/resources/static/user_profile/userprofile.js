@@ -1,5 +1,5 @@
 angular.module('market-app').controller('userProfileController', function ($scope, $http) {
-    const applicationPath = 'http://localhost:8189/'
+    const applicationPath = 'http://localhost:9000/auth-service/'
 
     $scope.getUserProfile = function () {
         $http({

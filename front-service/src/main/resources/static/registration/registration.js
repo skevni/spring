@@ -1,5 +1,5 @@
 angular.module('market-app').controller('userRegistrationController', function ($scope, $http, $routeParams, $location) {
-    const applicationPath = 'http://localhost:8189/'
+    const applicationPath = 'http://localhost:9000/auth-service/'
 
     $scope.tryToRegister = function () {
         $http.post(applicationPath + 'registration', $scope.registration)

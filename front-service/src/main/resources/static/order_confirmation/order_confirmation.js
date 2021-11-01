@@ -1,6 +1,6 @@
 angular.module('market-app').controller('orderConfirmationController', function ($scope, $http, $location, $localStorage) {
-    const applicationPath = 'http://localhost:8191/market-cart/api/v1/';
-    const applicationPathOrder = 'http://localhost:8193/market-order/api/v1/'
+    const applicationPath = 'http://localhost:9000/cart-service/api/v1/';
+    const applicationPathOrder = 'http://localhost:9000/order-service/api/v1/';
 
     $scope.getCart = function () {
         $http({
@@ -12,7 +12,7 @@ angular.module('market-app').controller('orderConfirmationController', function 
     }
 
     $scope.createOrder = function () {
-        $http.defaults.headers.common.username = $localStorage.webMarketUser.username;
+        $http.defaults.headers.common.username = $localStorage.webUserStorage.username;
         console.log($scope.cart);
         $http({
             url: applicationPathOrder + 'orders',

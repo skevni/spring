@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.sklyarov.shop.auth.services.UserService;
+import ru.gb.sklyarov.shop.auth.utils.JwtTokenUtil;
 import ru.gb.sklyarov.shop.common.dtos.AuthRequest;
 import ru.gb.sklyarov.shop.common.dtos.AuthResponse;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
 import ru.gb.sklyarov.shop.common.exceptions.DataValidationException;
 import ru.gb.sklyarov.shop.common.exceptions.ShopAuthException;
 import ru.gb.sklyarov.shop.common.exceptions.ShopError;
-import ru.gb.sklyarov.shop.auth.utils.JwtTokenUtil;
 
 import javax.security.auth.message.AuthException;
 import java.util.List;

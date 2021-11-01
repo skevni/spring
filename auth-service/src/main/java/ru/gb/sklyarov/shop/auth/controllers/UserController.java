@@ -3,16 +3,11 @@ package ru.gb.sklyarov.shop.auth.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.sklyarov.shop.auth.entities.User;
 import ru.gb.sklyarov.shop.auth.services.UserService;
 import ru.gb.sklyarov.shop.auth.utils.EntityShopConverter;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
-
-import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,10 +17,10 @@ public class UserController {
     private final EntityShopConverter converter;
 
     @GetMapping("/user_profile")
-    public UserDto showUserProfile(Principal principal) {
+    public UserDto showUserProfile(@RequestHeader String username) {
         // Если страничка перезагружается без перелогирования, то славливаю NullPointerException
         // principal = null почему-то
-        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(String.format("Unable to find user by username: %s", principal.getName())));
+        User user = userService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("Unable to find user by username: %s", username)));
         return converter.userToDto(user);
     }
 

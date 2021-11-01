@@ -1,5 +1,5 @@
 angular.module('market-app').controller('statisticsController', function ($scope, $http, $routeParams, $location, $rootScope) {
-    const applicationPath = 'http://localhost:8189/'
+    const applicationPath = 'http://localhost:9000/core-service/'
 
     $scope.getStatistics = function () {
         $http({

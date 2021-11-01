@@ -19,3 +19,5 @@ integration:
     url: http://localhost:8189
   cart-service:
     url: http://localhost:8191/market-cart
+  auth-service:
+    url: http://localhost:8190

@@ -8,8 +8,8 @@ import ru.gb.sklyarov.shop.common.dtos.OrderItemDto;
 import ru.gb.sklyarov.shop.common.exceptions.ResourceNotFoundException;
 import ru.gb.sklyarov.shop.order.entities.Order;
 import ru.gb.sklyarov.shop.order.entities.OrderItem;
+import ru.gb.sklyarov.shop.order.integration.AuthServiceIntegration;
 import ru.gb.sklyarov.shop.order.integration.CartServiceIntegration;
-import ru.gb.sklyarov.shop.order.integration.CoreServiceIntegration;
 import ru.gb.sklyarov.shop.order.repositories.OrderRepository;
 
 import java.time.ZoneId;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final CoreServiceIntegration coreServiceIntegration;
+    private final AuthServiceIntegration authServiceIntegration;
     private final CartServiceIntegration cartServiceIntegration;
 
     public Order findOrderById(Long id) {
@@ -42,7 +42,7 @@ public class OrderService {
         order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
         order.setOrderDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-        order.setUserId(coreServiceIntegration.getUserByUsername(username).getUserId());
+        order.setUserId(authServiceIntegration.getUserByUsername(username).getUserId());
         order.setTotalPrice(orderDto.getTotalPrice());
 
         List<OrderItem> orderItems = new ArrayList<>();
@@ -64,6 +64,6 @@ public class OrderService {
     }
 
     public List<Order> findAllByUsername(String username) {
-        return orderRepository.findByUserId(coreServiceIntegration.getUserByUsername(username).getUserId());
+        return orderRepository.findByUserId(authServiceIntegration.getUserByUsername(username).getUserId());
     }
 }

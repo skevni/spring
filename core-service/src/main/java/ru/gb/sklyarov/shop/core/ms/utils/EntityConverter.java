@@ -17,21 +17,13 @@ public class EntityConverter {
         return new ProductDto(product.getId(), product.getTitle(), product.getPrice());
     }
 
-    public CommentDto commentToDto(Comment comment) {
+    public CommentDto commentToDto(Comment comment, String username) {
+        if (username == null) {
+            // TODO: взять имя пользователя по ID из auth-service
+            username = "";
+        }
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        return new CommentDto(comment.getId(), dateFormat.format(comment.getCreatedAt()), comment.getUser().getUsername(), comment.getComment(), comment.getProduct().getId(), comment.getUser().getId());
+        return new CommentDto(comment.getId(), dateFormat.format(comment.getCreatedAt()), username, comment.getComment(), comment.getProduct().getId(), comment.getUserId());
     }
 
-    public UserDto userToDto(User user) {
-        StringBuilder role_list = new StringBuilder();
-        for (Role role : user.getRoles()) {
-            role_list.append(role.getName()).append(',');
-        }
-        for (Role role : user.getRoles()) {
-            role.getAuthorities().forEach(authority -> role_list.append(authority.getName()).append(','));
-        }
-        role_list.setLength(role_list.length() - 1);
-
-        return new UserDto(user.getId(), user.getUsername(), user.getPassword(), user.getPassword(), user.getEmail(), role_list.toString());
-    }
 }

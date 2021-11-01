@@ -12,7 +12,6 @@ import ru.gb.sklyarov.shop.common.dtos.StringResponse;
 @RestController
 @RequestMapping("api/v1/cart")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CartController {
     private final CartService cartService;
     private final ProductServiceIntegration productServiceIntegration;

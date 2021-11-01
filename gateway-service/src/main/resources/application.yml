@@ -16,15 +16,21 @@ spring:
           predicates:
             - Path=/order-service/**
           filters:
-            - PrefixPath=/market-order
             - StripPrefix=1
+            - PrefixPath=/market-order
         - id: auth-service
           uri: http://localhost:8190
           predicates:
-            - Path=/auth/**
+            - Path=/auth-service/**
           filters:
             - StripPrefix=1
-            - PrefixPath=/
+        - id: cart-service
+          uri: http://localhost:8191
+          predicates:
+            - Path=/cart-service/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/market-cart
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -32,6 +38,7 @@ spring:
             allowedMethods:
               - GET
               - POST
+            allowedHeaders: "*"
 jwt:
   secret: oifh4309f8h324#098fh4398gh8h*&TG*#&Gg97rgf&-f98gf983h4f983h487g*&^F&Fu3r
 

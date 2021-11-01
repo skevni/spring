@@ -6,16 +6,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.sklyarov.shop.core.ms.entities.Product;
-import ru.gb.sklyarov.shop.common.exceptions.DataValidationException;
-import ru.gb.sklyarov.shop.common.exceptions.ResourceNotFoundException;
-import ru.gb.sklyarov.shop.core.ms.services.ProductService;
 import ru.gb.sklyarov.shop.common.dtos.CommentDto;
 import ru.gb.sklyarov.shop.common.dtos.ProductDto;
 import ru.gb.sklyarov.shop.common.dtos.StringResponse;
+import ru.gb.sklyarov.shop.common.exceptions.DataValidationException;
+import ru.gb.sklyarov.shop.common.exceptions.ResourceNotFoundException;
+import ru.gb.sklyarov.shop.core.ms.entities.Product;
+import ru.gb.sklyarov.shop.core.ms.services.ProductService;
 import ru.gb.sklyarov.shop.core.ms.utils.EntityConverter;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,23 +44,23 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/comments/my")
-    public List<CommentDto> getUsersComments(@PathVariable Long id, Principal principal) {
-        return productService.findCommentsByUserAndProduct(principal, id).stream().map(converter::commentToDto).collect(Collectors.toList());
+    public List<CommentDto> getUsersComments(@PathVariable Long id, @RequestHeader String username) {
+        return productService.findCommentsByUserAndProduct(username, id).stream().map(comment -> converter.commentToDto(comment, username)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}/comments")
-    public List<CommentDto> getComments(@PathVariable Long id) {
-        return productService.findCommentsByProduct(id).stream().map(converter::commentToDto).collect(Collectors.toList());
+    public List<CommentDto> getComments(@PathVariable Long id, @RequestHeader(required = false) String username) {
+        return productService.findCommentsByProduct(id).stream().map(comment -> converter.commentToDto(comment, username)).collect(Collectors.toList());
     }
 
     @PostMapping("/comment")
-    public void saveComment(@RequestBody CommentDto commentDto, Principal principal) {
-        productService.saveComment(commentDto, principal);
+    public void saveComment(@RequestBody CommentDto commentDto, @RequestHeader String username) {
+        productService.saveComment(commentDto, username);
     }
 
     @GetMapping("/{id}/purchase")
-    public StringResponse getInformationAboutPurchase(@PathVariable Long id, Principal principal) {
-        return new StringResponse(Boolean.toString(productService.findPurchase(id, principal)));
+    public StringResponse getInformationAboutPurchase(@PathVariable Long id, @RequestHeader(required = false) String username) {
+        return new StringResponse(Boolean.toString(productService.findPurchase(id, username)));
     }
 
     @GetMapping("/filter")

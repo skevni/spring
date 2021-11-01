@@ -60,7 +60,7 @@
     }
 
     function run($rootScope, $http, $localStorage) {
-        const applicationPathCart = 'http://localhost:8191/market-cart/'
+        const applicationPathCart = 'http://localhost:9000/cart-service/'
 
         if ($localStorage.webUserStorage) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webUserStorage.token;
@@ -76,16 +76,15 @@
 })();
 
 angular.module('market-app').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
-    const applicationPath = 'http://localhost:8189/';
-    const contextPathCart = 'http://localhost:8191/market-cart/';
+    const applicationPathAuth = 'http://localhost:9000/auth-service/';
+    const applicationPathCart = 'http://localhost:9000/cart-service/';
 
     $scope.tryToAuth = function () {
         $http({
-            url: applicationPath + "auth",
+            url: applicationPathAuth + "auth",
             data: $scope.user,
             method: "POST"
         }).then(function successCallback(response) {
-            console.log(response.data);
             if (response.data.token) {
                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                 $localStorage.webUserStorage = {username: $scope.user.username, token: response.data.token};
@@ -93,7 +92,7 @@ angular.module('market-app').controller('indexController', function ($rootScope,
                 $scope.user.username = null;
                 $scope.user.password = null
 
-                $http.get(contextPathCart + 'api/v1/cart/' + $localStorage.webShopGuestCartId + '/merge')
+                $http.get(applicationPathCart + 'api/v1/cart/' + $localStorage.webShopGuestCartId + '/merge')
                     .then(function successCallback(response) {
                     });
             }

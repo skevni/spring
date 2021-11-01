@@ -1,5 +1,5 @@
 angular.module('market-app').controller('usersController', function ($scope, $http, $routeParams, $location, $rootScope) {
-    const applicationPath = 'http://localhost:8189/'
+    const applicationPath = 'http://localhost:9000/auth-service/'
 
     $scope.editUser = function (user_id) {
         $http({

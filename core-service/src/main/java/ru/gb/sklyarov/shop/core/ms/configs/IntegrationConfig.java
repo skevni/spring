@@ -17,8 +17,11 @@ public class IntegrationConfig {
     @Value("${integration.auth-service.url}")
     private String authServerUrl;
 
+    @Value("${integration.order-service.url}")
+    private String orderServiceUrl;
+
     @Bean
-    public WebClient authServiceWebClient(){
+    public WebClient authServiceWebClient() {
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5_000)
                 .doOnConnected(connection -> connection
@@ -26,6 +29,18 @@ public class IntegrationConfig {
                         .addHandlerLast(new WriteTimeoutHandler(5_000, TimeUnit.MILLISECONDS)));
         return WebClient.builder()
                 .baseUrl(authServerUrl)
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .build();
+    }
+
+    @Bean
+    public WebClient orderServiceWebClient() {
+        HttpClient httpClient = HttpClient.create()
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5_000)
+                .doOnConnected(connection -> connection.addHandlerLast(new ReadTimeoutHandler(10_000, TimeUnit.MILLISECONDS))
+                        .addHandlerLast(new WriteTimeoutHandler(5_000, TimeUnit.MILLISECONDS)));
+        return WebClient.builder()
+                .baseUrl(orderServiceUrl)
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
     }

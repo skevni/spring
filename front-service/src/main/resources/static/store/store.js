@@ -1,6 +1,6 @@
 angular.module('market-app').controller('storeController', function ($rootScope, $scope, $http, $location, $localStorage) {
-    const applicationPath = 'http://localhost:8189/api/v1/';
-    const applicationPathCart = 'http://localhost:8191/market-cart/api/v1/';
+    const applicationPath = 'http://localhost:9000/core-service/api/v1/';
+    const applicationPathCart = 'http://localhost:9000/cart-service/api/v1/';
 
     let page = 1;
     let totalPages = 0;
@@ -43,7 +43,7 @@ angular.module('market-app').controller('storeController', function ($rootScope,
     }
 
     $scope.addToCart = function (productId) {
-        $http.defaults.headers.common.username = $localStorage.webMarketUser.username;
+        // $http.defaults.headers.common.username = $localStorage.webUserStorage.username;
         $http({
             url: applicationPathCart + 'cart/' + $localStorage.webShopGuestCartId + '/add/' + productId,
             method: 'GET'

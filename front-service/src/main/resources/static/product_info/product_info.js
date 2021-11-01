@@ -1,5 +1,5 @@
 angular.module('market-app').controller('productInfoController', function ($scope, $http, $routeParams, $location, $rootScope) {
-    const applicationPath = 'http://localhost:8189/api/v1/'
+    const applicationPath = 'http://localhost:9000/core-service/api/v1/'
 
     $scope.getProduct = function () {
         $http({

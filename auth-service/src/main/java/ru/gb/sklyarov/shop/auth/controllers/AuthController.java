@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.controllers;
+package ru.gb.sklyarov.shop.auth.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,18 +9,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gb.sklyarov.shop.common.exceptions.DataValidationException;
-import ru.gb.sklyarov.shop.common.exceptions.ShopAuthException;
-import ru.gb.sklyarov.shop.common.exceptions.ShopError;
-import ru.gb.sklyarov.shop.core.ms.services.UserService;
-import ru.gb.sklyarov.shop.core.ms.utils.JwtTokenUtil;
+import ru.gb.sklyarov.shop.auth.services.UserService;
 import ru.gb.sklyarov.shop.common.dtos.AuthRequest;
 import ru.gb.sklyarov.shop.common.dtos.AuthResponse;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
+import ru.gb.sklyarov.shop.common.exceptions.DataValidationException;
+import ru.gb.sklyarov.shop.common.exceptions.ShopAuthException;
+import ru.gb.sklyarov.shop.common.exceptions.ShopError;
+import ru.gb.sklyarov.shop.auth.utils.JwtTokenUtil;
 
 import javax.security.auth.message.AuthException;
 import java.util.List;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;

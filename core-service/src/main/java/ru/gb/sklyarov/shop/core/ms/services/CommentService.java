@@ -2,10 +2,9 @@ package ru.gb.sklyarov.shop.core.ms.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.gb.sklyarov.shop.core.ms.repositories.CommentRepository;
 import ru.gb.sklyarov.shop.core.ms.entities.Comment;
 import ru.gb.sklyarov.shop.core.ms.entities.Product;
-import ru.gb.sklyarov.shop.core.ms.entities.User;
+import ru.gb.sklyarov.shop.core.ms.repositories.CommentRepository;
 
 import java.util.List;
 
@@ -19,8 +18,8 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public List<Comment> findCommentsByUserAndProduct(User user, Product product) {
-        return commentRepository.findAllByUserAndProduct(user, product);
+    public List<Comment> findCommentsByUserIdAndProduct(Long userId, Product product) {
+        return commentRepository.findAllByUserIdAndProduct(userId, product);
     }
 
     public List<Comment> findCommentsByProduct(Product product) {

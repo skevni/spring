@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.configs;
+package ru.gb.sklyarov.shop.auth.configs;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.gb.sklyarov.shop.core.ms.utils.JwtTokenUtil;
+import ru.gb.sklyarov.shop.auth.utils.JwtTokenUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.services;
+package ru.gb.sklyarov.shop.auth.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,12 +12,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.gb.sklyarov.shop.auth.entities.Authority;
+import ru.gb.sklyarov.shop.auth.entities.Role;
+import ru.gb.sklyarov.shop.auth.entities.User;
+import ru.gb.sklyarov.shop.auth.repositories.UserRepository;
+import ru.gb.sklyarov.shop.auth.utils.EntityShopConverter;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
-import ru.gb.sklyarov.shop.core.ms.entities.Authority;
-import ru.gb.sklyarov.shop.core.ms.entities.Role;
-import ru.gb.sklyarov.shop.core.ms.entities.User;
-import ru.gb.sklyarov.shop.core.ms.repositories.UserRepository;
-import ru.gb.sklyarov.shop.core.ms.utils.EntityConverter;
 
 import javax.security.auth.message.AuthException;
 import java.util.*;
@@ -28,13 +28,13 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final EntityConverter converter;
+    private final EntityShopConverter converter;
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public  Optional<User> findUserDtoByUsernameForFront(String username) {
+    public Optional<User> findUserDtoByUsernameForFront(String username) {
         return userRepository.findUserByUsernameForFront(username);
     }
 
@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<User> findAllUsers(int pageIndex, int pageSize) {
-        List<User> userCollection = new ArrayList<>( userRepository.findAllUsers());
+        List<User> userCollection = new ArrayList<>(userRepository.findAllUsers());
 
         return new PageImpl<>(userCollection, PageRequest.of(pageIndex, pageSize), userCollection.size());
     }

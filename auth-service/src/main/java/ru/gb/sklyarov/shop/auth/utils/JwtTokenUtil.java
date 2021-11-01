@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.utils;
+package ru.gb.sklyarov.shop.auth.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

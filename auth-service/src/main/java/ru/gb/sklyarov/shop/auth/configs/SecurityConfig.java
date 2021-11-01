@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.configs;
+package ru.gb.sklyarov.shop.auth.configs;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

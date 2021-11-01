@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.controllers;
+package ru.gb.sklyarov.shop.auth.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.gb.sklyarov.shop.auth.entities.User;
+import ru.gb.sklyarov.shop.auth.services.UserService;
+import ru.gb.sklyarov.shop.auth.utils.EntityShopConverter;
 import ru.gb.sklyarov.shop.common.dtos.UserDto;
-import ru.gb.sklyarov.shop.core.ms.entities.User;
-import ru.gb.sklyarov.shop.core.ms.services.UserService;
-import ru.gb.sklyarov.shop.core.ms.utils.EntityConverter;
 
 import java.security.Principal;
 
@@ -19,7 +19,7 @@ import java.security.Principal;
 public class UserController {
     private static final int PAGE_SIZE = 10;
     private final UserService userService;
-    private final EntityConverter converter;
+    private final EntityShopConverter converter;
 
     @GetMapping("/user_profile")
     public UserDto showUserProfile(Principal principal) {

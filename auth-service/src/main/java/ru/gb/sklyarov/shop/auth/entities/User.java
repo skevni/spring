@@ -1,4 +1,4 @@
-package ru.gb.sklyarov.shop.core.ms.entities;
+package ru.gb.sklyarov.shop.auth.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

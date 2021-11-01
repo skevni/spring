@@ -22,9 +22,10 @@ public class Comment {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", nullable = false)
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "comment")
     private String comment;

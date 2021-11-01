@@ -1,5 +1,5 @@
 server:
-  port: 8189
+  port: 8190
   servlet:
     context-path: /
 spring:
@@ -14,10 +14,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
     open-in-view: false
-integration:
-  cart-service:
-    url: http://localhost:8191/market-cart
-  order-service:
-    url: http://localhost:8193/market-order
-  auth-service:
-    url: http://localhost:9000
+
+jwt:
+  secret: oifh4309f8h324#098fh4398gh8h*&TG*#&Gg97rgf&-f98gf983h4f983h487g*&^F&Fu3r
+#  lifetime: 36000000

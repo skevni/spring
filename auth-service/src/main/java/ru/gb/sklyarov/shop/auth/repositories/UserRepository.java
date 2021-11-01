@@ -1,12 +1,12 @@
-package ru.gb.sklyarov.shop.core.ms.repositories;
+package ru.gb.sklyarov.shop.auth.repositories;
 
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.gb.sklyarov.shop.core.ms.entities.Role;
-import ru.gb.sklyarov.shop.core.ms.entities.User;
+import ru.gb.sklyarov.shop.auth.entities.Role;
+import ru.gb.sklyarov.shop.auth.entities.User;
 
 import java.util.Collection;
 import java.util.Optional;

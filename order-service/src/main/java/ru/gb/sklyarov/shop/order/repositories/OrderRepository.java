@@ -14,4 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @EntityGraph(value = "orders.for-front")
     @Query("SELECT ord FROM Order ord WHERE ord.userId = :userId")
     List<Order> findByUserId(Long userId);
+
+    @EntityGraph(value = "orders.for-front")
+    @Query("SELECT ord FROM Order ord join fetch ord.orderItems oi WHERE ord.userId = :userId and oi.productId = :productId")
+    List<Order> findByUserIdAndProductId(Long userId, Long productId);
 }

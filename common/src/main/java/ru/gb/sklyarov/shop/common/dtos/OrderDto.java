@@ -1,20 +1,21 @@
 package ru.gb.sklyarov.shop.common.dtos;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderDto {
     private Long id;
     private String phone;
     private String address;
-    private double totalPrice;
+    private BigDecimal totalPrice;
     private List<OrderItemDto> cartItems;
 
 
     public OrderDto() {
     }
 
-    public OrderDto(Long id, String phone, String address, double totalPrice, List<OrderItemDto> cartItems) {
+    public OrderDto(Long id, String phone, String address, BigDecimal totalPrice, List<OrderItemDto> cartItems) {
         this.id = id;
         this.phone = phone;
         this.address = address;
@@ -46,11 +47,11 @@ public class OrderDto {
         this.address = address;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

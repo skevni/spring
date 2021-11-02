@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.gb.sklyarov.shop.common.dtos.OrderItemDto;
 import ru.gb.sklyarov.shop.common.dtos.ProductDto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 public class Cart {
     private List<OrderItemDto> cartItems;
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     public Cart() {
         cartItems = new ArrayList<>();
@@ -58,13 +59,13 @@ public class Cart {
 
     public void clear() {
         cartItems.clear();
-        totalPrice = 0;
+        totalPrice = BigDecimal.ZERO;
     }
 
     private void recalculate() {
-        totalPrice = 0;
+        totalPrice = BigDecimal.ZERO;
         for (OrderItemDto item : cartItems) {
-            totalPrice += item.getTotalPrice();
+            totalPrice = totalPrice.add(item.getTotalPrice());
         }
     }
 

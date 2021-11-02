@@ -22,7 +22,6 @@ angular.module('market-app').controller('productInfoController', function ($scop
         })
             .then(function successCallback(response) {
                 $scope.comments = response.data
-                console.log(response.data);
             }, function failureCallback(response) {
                 alert(response.data.messages);
                 $location.path('/products');
@@ -35,7 +34,6 @@ angular.module('market-app').controller('productInfoController', function ($scop
             return;
         }
         $scope.created_comment.product_id = $routeParams.productId;
-        console.log($scope.created_comment);
         $http({
             url: applicationPath + 'products/comment',
             data: $scope.created_comment,
@@ -57,7 +55,6 @@ angular.module('market-app').controller('productInfoController', function ($scop
         })
             .then(function successCallback(response) {
                 $scope.isBought = response.data.value;
-                console.log($scope.isBought);
             }, function failureCallback(response) {
                 return false;
             });

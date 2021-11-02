@@ -2,7 +2,7 @@ Create table products
 (
     id         bigserial primary key,
     title      varchar(255),
-    price      double precision,
+    price      numeric(15,2),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );

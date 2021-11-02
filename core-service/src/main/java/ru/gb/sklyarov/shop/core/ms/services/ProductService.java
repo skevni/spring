@@ -5,6 +5,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.gb.sklyarov.shop.common.dtos.*;
 import ru.gb.sklyarov.shop.common.exceptions.ResourceNotFoundException;
@@ -13,6 +15,7 @@ import ru.gb.sklyarov.shop.core.ms.entities.Product;
 import ru.gb.sklyarov.shop.core.ms.repositories.ProductRepository;
 import ru.gb.sklyarov.shop.core.ms.ws.products.ProductWs;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +44,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> findAllProductsByPrice(Double minPriceLimit, Double maxPriceLimit) {
+    public List<Product> findAllProductsByPrice(BigDecimal minPriceLimit, BigDecimal maxPriceLimit) {
         if (minPriceLimit == null && maxPriceLimit == null) {
             return new ArrayList<>();
         }
@@ -118,7 +121,13 @@ public class ProductService {
         if (username == null) {
             return false;
         }
-        List<OrderDto> orderList = orderServiceWebClient.get().uri("/api/v1/orders").retrieve().bodyToMono(new ParameterizedTypeReference<List<OrderDto>>() {
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("username", username);
+        List<OrderDto> orderList = orderServiceWebClient.get()
+                .uri("/api/v1/orders/" + productId)
+                .headers(httpHeaders -> httpHeaders.addAll(headers))
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<OrderDto>>() {
         }).block();
         if (orderList != null && !orderList.isEmpty()) {
             for (OrderDto o: orderList){

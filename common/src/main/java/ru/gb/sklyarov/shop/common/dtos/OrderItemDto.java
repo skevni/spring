@@ -1,10 +1,12 @@
 package ru.gb.sklyarov.shop.common.dtos;
 
+import java.math.BigDecimal;
+
 public class OrderItemDto {
     private Long product_id;
     private String title;
-    private double price;
-    private double totalPrice;
+    private BigDecimal price;
+    private BigDecimal totalPrice;
     private int quantity;
 //    private Long id;
 
@@ -12,7 +14,7 @@ public class OrderItemDto {
     }
 
 //    public OrderItemDto(Long product_id, String title, double price, double totalPrice, int quantity, Long id) {
-    public OrderItemDto(Long product_id, String title, double price, double totalPrice, int quantity) {
+    public OrderItemDto(Long product_id, String title, BigDecimal price, BigDecimal totalPrice, int quantity) {
         this.product_id = product_id;
         this.title = title;
         this.price = price;
@@ -25,7 +27,7 @@ public class OrderItemDto {
         if (quantity < 0) {
             quantity = 0;
         }
-        totalPrice = price * quantity;
+        totalPrice = price.multiply(BigDecimal.valueOf(quantity));
     }
 
     public Long getProduct_id() {
@@ -44,19 +46,19 @@ public class OrderItemDto {
         this.title = title;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Order {
     @Column(name = "address")
     private String address;
     @Column(name = "total_price")
-    private double totalPrice;
+    private BigDecimal totalPrice;
     @Column(name = "user_id")
     private Long userId;
     @CreationTimestamp

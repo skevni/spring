@@ -1,17 +1,19 @@
 package ru.gb.sklyarov.shop.common.dtos;
 
+import java.math.BigDecimal;
+
 public class CartItemDto {
 //TODO: разобраться зачем у меня дублирующий класс OrderItemDto
     private Long id;
     private String title;
-    private double price;
-    private double totalPrice;
+    private BigDecimal price;
+    private BigDecimal totalPrice;
     private int quantity;
 
     public CartItemDto() {
     }
 
-    public CartItemDto(Long id, String title, double price, double totalPrice, int quantity) {
+    public CartItemDto(Long id, String title, BigDecimal price, BigDecimal totalPrice, int quantity) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -24,7 +26,7 @@ public class CartItemDto {
         if (quantity < 0) {
             quantity = 0;
         }
-        totalPrice = price * quantity;
+        totalPrice = price.multiply(BigDecimal.valueOf(quantity));
     }
 
     public Long getId() {
@@ -43,19 +45,19 @@ public class CartItemDto {
         this.title = title;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

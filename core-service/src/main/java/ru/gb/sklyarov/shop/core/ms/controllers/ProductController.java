@@ -15,6 +15,7 @@ import ru.gb.sklyarov.shop.core.ms.entities.Product;
 import ru.gb.sklyarov.shop.core.ms.services.ProductService;
 import ru.gb.sklyarov.shop.core.ms.utils.EntityConverter;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ public class ProductController {
     }
 
     @GetMapping("/filter")
-    public List<ProductDto> getProductByFilter(@RequestParam(name = "min_price", required = false) Double minPriceLimit, @RequestParam(name = "max_price", required = false) Double maxPriceLimit) {
+    public List<ProductDto> getProductByFilter(@RequestParam(name = "min_price", required = false) BigDecimal minPriceLimit, @RequestParam(name = "max_price", required = false) BigDecimal maxPriceLimit) {
         return productService.findAllProductsByPrice(minPriceLimit, maxPriceLimit)
                 .stream().map(converter::productToDto)
                 .collect(Collectors.toList());

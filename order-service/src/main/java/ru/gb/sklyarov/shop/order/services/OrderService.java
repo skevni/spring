@@ -66,4 +66,8 @@ public class OrderService {
     public List<Order> findAllByUsername(String username) {
         return orderRepository.findByUserId(authServiceIntegration.getUserByUsername(username).getUserId());
     }
+
+    public List<Order> findAllByUsernameAndProductId(String username, Long productId) {
+        return orderRepository.findByUserIdAndProductId(authServiceIntegration.getUserByUsername(username).getUserId(), productId);
+    }
 }

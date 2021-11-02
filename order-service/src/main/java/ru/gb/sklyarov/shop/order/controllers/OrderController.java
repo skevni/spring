@@ -29,4 +29,9 @@ public class OrderController {
         return orderService.findAllByUsername(username).stream().map(converter::orderToDto).collect(Collectors.toList());
     }
 
+    @GetMapping("/{productId}")
+    public List<OrderDto> getUserOrdersByProduct(@RequestHeader String username, @PathVariable Long productId) {
+        return orderService.findAllByUsernameAndProductId(username, productId).stream().map(converter::orderToDto).collect(Collectors.toList());
+    }
+
 }

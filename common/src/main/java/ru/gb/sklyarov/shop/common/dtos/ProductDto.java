@@ -1,6 +1,8 @@
 package ru.gb.sklyarov.shop.common.dtos;
 
 
+import java.math.BigDecimal;
+
 public class ProductDto {
     private Long id;
 
@@ -10,12 +12,12 @@ public class ProductDto {
 
 //    @NotNull(message = "Товар должен иметь цену")
 //    @DecimalMin(value = "0.01", message = "Цена должна быть больше или равна 0.01 руб")
-    private double price;
+    private BigDecimal price;
 
     public ProductDto() {
     }
 
-    public ProductDto(Long id, String title, double price) {
+    public ProductDto(Long id, String title, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -37,11 +39,11 @@ public class ProductDto {
         this.title = title;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

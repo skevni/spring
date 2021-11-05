@@ -37,7 +37,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void saveOrderWithOrderItems(OrderDto orderDto, String username) {
+    public Order saveOrderWithOrderItems(OrderDto orderDto, String username) {
         Order order = new Order();
         order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
@@ -61,6 +61,8 @@ public class OrderService {
         orderRepository.save(order);
 
         cartServiceIntegration.clear(username);
+
+        return order;
     }
 
     public List<Order> findAllByUsername(String username) {

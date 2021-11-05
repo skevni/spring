@@ -9,13 +9,14 @@ public class OrderDto {
     private String phone;
     private String address;
     private BigDecimal totalPrice;
+    private String username;
     private List<OrderItemDto> cartItems;
 
 
     public OrderDto() {
     }
 
-    public OrderDto(Long id, String phone, String address, BigDecimal totalPrice, List<OrderItemDto> cartItems) {
+    public OrderDto(Long id, String phone, String address, BigDecimal totalPrice, String username,List<OrderItemDto> cartItems) {
         this.id = id;
         this.phone = phone;
         this.address = address;
@@ -61,5 +62,13 @@ public class OrderDto {
 
     public void setCartItems(List<OrderItemDto> cartItems) {
         this.cartItems = cartItems;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

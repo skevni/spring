@@ -13,6 +13,15 @@ public class AuthServiceIntegration {
     public UserDto getUserByUsername(String username) {
         return authServiceWebClient.get()
                 .uri("/users/" + username)
+                .header("username", username)
+                .retrieve()
+                .bodyToMono(UserDto.class)
+                .block();
+    }
+
+    public UserDto getUserByUserId(Long userId) {
+        return authServiceWebClient.get()
+                .uri("/users/" + userId)
                 .retrieve()
                 .bodyToMono(UserDto.class)
                 .block();

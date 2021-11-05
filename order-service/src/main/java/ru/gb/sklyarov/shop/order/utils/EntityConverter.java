@@ -2,12 +2,13 @@ package ru.gb.sklyarov.shop.order.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.gb.sklyarov.shop.order.entities.Order;
-import ru.gb.sklyarov.shop.order.entities.OrderItem;
-import ru.gb.sklyarov.shop.order.integration.CoreServiceIntegration;
 import ru.gb.sklyarov.shop.common.dtos.OrderDto;
 import ru.gb.sklyarov.shop.common.dtos.OrderItemDto;
 import ru.gb.sklyarov.shop.common.dtos.ProductDto;
+import ru.gb.sklyarov.shop.order.entities.Order;
+import ru.gb.sklyarov.shop.order.entities.OrderItem;
+import ru.gb.sklyarov.shop.order.integration.AuthServiceIntegration;
+import ru.gb.sklyarov.shop.order.integration.CoreServiceIntegration;
 
 import java.util.stream.Collectors;
 
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 public class EntityConverter {
 
     private CoreServiceIntegration coreServiceIntegration;
+    @Autowired
+    private AuthServiceIntegration authServiceWebClient;
 
     @Autowired
     public void setCoreServiceIntegration(CoreServiceIntegration coreServiceIntegration){
@@ -22,7 +25,12 @@ public class EntityConverter {
     }
 
     public OrderDto orderToDto(Order order) {
-        return new OrderDto(order.getId(), order.getPhone(), order.getAddress(), order.getTotalPrice(), order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()));
+//        UserDto userDto = authServiceWebClient.getUserByUserId(order.getUserId());
+        String username = "";
+//        if (userDto != null){
+//            username = userDto.getUsername();
+//        }
+        return new OrderDto(order.getId(), order.getPhone(), order.getAddress(), order.getTotalPrice(), username,order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()));
     }
 
     // В моем случае Title не хранится в ордерах.

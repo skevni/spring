@@ -17,6 +17,10 @@
                 templateUrl: "edit_product/edit_product.html",
                 controller: "editProductController"
             })
+            .when('/order_pay/:orderId', {
+                templateUrl: 'order_pay/order_pay.html',
+                controller: 'orderPayController'
+            })
             .when('/create_product', {
                 templateUrl: "create_product/create_product.html",
                 controller: "createProductController"

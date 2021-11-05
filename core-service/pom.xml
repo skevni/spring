@@ -72,6 +72,18 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.paypal.sdk/paypal-core -->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>paypal-core</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>checkout-sdk</artifactId>
+            <version>1.0.5</version>
+        </dependency>
         <!--	!!!	Без этой зависимости не хотел нормально устанавливаться плагин jaxb2-maven-plugin-->
         <!--        		<dependency>-->
         <!--        			<groupId>org.codehaus.mojo</groupId>-->

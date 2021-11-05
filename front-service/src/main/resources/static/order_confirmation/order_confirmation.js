@@ -19,8 +19,10 @@ angular.module('market-app').controller('orderConfirmationController', function 
             method: 'POST',
             data: $scope.cart
         }).then(function (response) {
-            alert('Ваш заказ успешно сформирован');
-            $location.path('/');
+            console.log(response.data);
+            var orderId = response.data.value;
+            console.log(orderId);
+            $location.path('/order_pay/' + orderId);
         });
     };
 

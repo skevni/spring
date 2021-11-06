@@ -40,4 +40,9 @@ public class OrderController {
         return converter.orderToDto(orderService.findOrderById(orderId));
     }
 
+    @PutMapping("/{orderId}")
+    public void setOrderPaid(@PathVariable Long orderId, @RequestParam String isPaid){
+        orderService.setOrderPaid(orderId, Boolean.parseBoolean(isPaid));
+    }
+
 }

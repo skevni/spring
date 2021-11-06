@@ -9,7 +9,10 @@ import com.paypal.orders.OrdersCreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
@@ -28,7 +31,7 @@ public class PayPalController {
         request.prefer("return=representation");
         request.requestBody(payPalService.createOrderRequest(orderId));
         HttpResponse<Order> response = payPalClient.execute(request);
-
+        
         return new ResponseEntity<>(response.result().id(), HttpStatus.valueOf(response.statusCode()));
     }
 
@@ -40,10 +43,14 @@ public class PayPalController {
         HttpResponse<Order> response = payPalClient.execute(request);
         Order payPalOrder = response.result();
         if ("COMPLETED".equals(payPalOrder.status())) {
-//            long orderId = Long.parseLong(payPalOrder.purchaseUnits().get(0).referenceId());
-//            Optional<OrderDto> orderDto = Optional.ofNullable(orderServiceWebClient.get()
-//                    .uri("/api/v1/orders/" + orderId).retrieve()
-//                    .bodyToMono(OrderDto.class).block());
+            long orderId = Long.parseLong(payPalOrder.purchaseUnits().get(0).referenceId());
+            orderServiceWebClient.put()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/api/v1/orders/{orderId}")
+                            .queryParam("isPaid", "true")
+                            .build(orderId))
+                    .retrieve().bodyToMono(void.class).block();
+
             // TODO: добавить изменение флага, что заказ оплачен и не выводить его еще раз к оплате
             //  перевести на другую страницу
 

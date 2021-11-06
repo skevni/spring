@@ -8,6 +8,7 @@ angular.module('market-app').controller('ordersController', function ($scope, $h
             method: 'GET'
         }).then(function (response) {
             $scope.orders = response.data;
+
         });
     };
 

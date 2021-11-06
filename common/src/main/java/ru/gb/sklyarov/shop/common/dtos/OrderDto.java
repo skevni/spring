@@ -11,17 +11,21 @@ public class OrderDto {
     private BigDecimal totalPrice;
     private String username;
     private List<OrderItemDto> cartItems;
+    private boolean isPaid;
+    private String statusPay;
 
 
     public OrderDto() {
     }
 
-    public OrderDto(Long id, String phone, String address, BigDecimal totalPrice, String username,List<OrderItemDto> cartItems) {
+    public OrderDto(Long id, String phone, String address, BigDecimal totalPrice, String username,List<OrderItemDto> cartItems, boolean isPaid) {
         this.id = id;
         this.phone = phone;
         this.address = address;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
+        this.isPaid = isPaid;
+        this.statusPay = isPaid ? "Оплачен" : "Не оплачен";
     }
 
     public Long getId() {
@@ -70,5 +74,17 @@ public class OrderDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public String getStatusPay() {
+        return statusPay;
     }
 }

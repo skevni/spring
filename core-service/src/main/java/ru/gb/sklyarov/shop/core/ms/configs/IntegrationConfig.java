@@ -36,8 +36,8 @@ public class IntegrationConfig {
     @Bean
     public WebClient orderServiceWebClient() {
         HttpClient httpClient = HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5_000)
-                .doOnConnected(connection -> connection.addHandlerLast(new ReadTimeoutHandler(10_000, TimeUnit.MILLISECONDS))
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 2_000)
+                .doOnConnected(connection -> connection.addHandlerLast(new ReadTimeoutHandler(5_000, TimeUnit.MILLISECONDS))
                         .addHandlerLast(new WriteTimeoutHandler(5_000, TimeUnit.MILLISECONDS)));
         return WebClient.builder()
                 .baseUrl(orderServiceUrl)

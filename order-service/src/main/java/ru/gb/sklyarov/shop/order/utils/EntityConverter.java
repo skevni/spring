@@ -26,11 +26,15 @@ public class EntityConverter {
 
     public OrderDto orderToDto(Order order) {
 //        UserDto userDto = authServiceWebClient.getUserByUserId(order.getUserId());
+        // TODO: записывать username
         String username = "";
 //        if (userDto != null){
 //            username = userDto.getUsername();
 //        }
-        return new OrderDto(order.getId(), order.getPhone(), order.getAddress(), order.getTotalPrice(), username,order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()));
+        return new OrderDto(order.getId(), order.getPhone(), order.getAddress(), order.getTotalPrice(),
+                username,order.getOrderItems().stream()
+                .map(this::orderItemToDto)
+                .collect(Collectors.toList()), order.isPaid());
     }
 
     // В моем случае Title не хранится в ордерах.

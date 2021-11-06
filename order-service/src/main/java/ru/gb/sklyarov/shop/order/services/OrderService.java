@@ -72,4 +72,9 @@ public class OrderService {
     public List<Order> findAllByUsernameAndProductId(String username, Long productId) {
         return orderRepository.findByUserIdAndProductId(authServiceIntegration.getUserByUsername(username).getUserId(), productId);
     }
+
+    @Transactional
+    public void setOrderPaid(Long orderId, boolean isPaid){
+        orderRepository.setOrderPaid(orderId, isPaid);
+    }
 }

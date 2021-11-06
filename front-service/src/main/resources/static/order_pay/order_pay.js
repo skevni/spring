@@ -8,7 +8,14 @@ angular.module('market-app').controller('orderPayController', function ($scope, 
             method: 'GET'
         }).then(function (response) {
             $scope.order = response.data;
-            $scope.renderPaymentButtons();
+            if ($scope.order.paid) {
+                $scope.order.statusPay = "Оплачен";
+            } else {
+                $scope.order.statusPay = "Не оплачен";
+            }
+            if (!$scope.order.paid) {
+                $scope.renderPaymentButtons();
+            }
         });
     };
 
@@ -31,9 +38,9 @@ angular.module('market-app').controller('orderPayController', function ($scope, 
                     headers: {
                         'content-type': 'application/json'
                     }
-                }).then(function(response) {
+                }).then(function successCallback(response) {
                     response.text().then(msg => alert(msg));
-
+                    actions.redirect();
                 });
             },
 

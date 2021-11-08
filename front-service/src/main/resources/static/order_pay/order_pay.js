@@ -39,8 +39,10 @@ angular.module('market-app').controller('orderPayController', function ($scope, 
                         'content-type': 'application/json'
                     }
                 }).then(function successCallback(response) {
-                    response.text().then(msg => alert(msg));
-                    actions.redirect();
+                    response.text().then(msg => {
+                        alert(msg);
+                    });
+                    $location.go("/store");
                 });
             },
 
